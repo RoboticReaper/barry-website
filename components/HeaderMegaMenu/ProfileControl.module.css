@@ -1,0 +1,34 @@
+.user {
+    display: block;
+    /* padding: var(--mantine-spacing-md); */
+    padding-left: var(--mantine-spacing-md);
+    padding-right: var(--mantine-spacing-md);
+    height: 100%;
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
+  
+    @mixin hover {
+      background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8));
+    }
+
+    @media (max-width: $mantine-breakpoint-sm) {
+      visibility: hidden;
+    }
+  }
+
+  .userSmall {
+    display: block;
+    padding: var(--mantine-spacing-md);
+    padding-left: var(--mantine-spacing-md);
+    padding-right: var(--mantine-spacing-md);
+    width: 100%;
+    height: 100%;
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
+  
+    @mixin hover {
+      background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8));
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+      visibility: hidden;
+    }
+  }

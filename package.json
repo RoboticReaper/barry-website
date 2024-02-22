@@ -21,10 +21,13 @@
   "dependencies": {
     "@mantine/core": "^7.5.3",
     "@mantine/hooks": "7.5.3",
+    "@mantine/notifications": "^7.5.3",
     "@mantinex/mantine-logo": "^1.0.1",
     "@next/bundle-analyzer": "^14.0.1",
     "@tabler/icons-react": "^2.40.0",
+    "firebase": "^10.8.0",
     "next": "14.0.1",
+    "nookies": "^2.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "yarn": "^1.22.21"

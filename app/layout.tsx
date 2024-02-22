@@ -2,6 +2,7 @@ import '@mantine/core/styles.css';
 import React from 'react';
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
 import { theme } from '../theme';
+import '@mantine/notifications/styles.css';
 
 export const metadata = {
   title: "Barry's Elite Tennis Academy",
@@ -9,6 +10,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: any }) {
+  
   return (
     <html lang="en">
       <head>
