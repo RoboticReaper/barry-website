@@ -83,7 +83,7 @@ export function Signup() {
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form onSubmit={()=>{createUser()}}>
+        <form onSubmit={(e)=>{e.preventDefault();createUser()}}>
           <FocusTrap active>
             <div>
               <TextInput label="Name" placeholder="Your name" required value={name} onChange={(e) => { setName(e.currentTarget.value); setNameError(false); }} error={nameError} />
@@ -92,7 +92,7 @@ export function Signup() {
             </div>
           </FocusTrap>
 
-          <Button fullWidth mt="xl" onClick={createUser} type="submit">
+          <Button fullWidth mt="xl" type="submit">
             Sign up
           </Button>
         </form>

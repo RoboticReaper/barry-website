@@ -79,7 +79,7 @@ export function Login() {
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form onSubmit={()=>{LogInUser()}}>
+        <form onSubmit={(e)=>{e.preventDefault();LogInUser()}}>
           <FocusTrap active>
             <div>
               <TextInput label="Email" placeholder="Your email" required value={email} onChange={(e) => { setEmail(e.currentTarget.value); setEmailError(false); }} error={emailError} />
@@ -91,7 +91,7 @@ export function Login() {
               Forgot password?
             </Anchor>
           </Group>
-          <Button fullWidth mt="xl" onClick={LogInUser} type="submit">
+          <Button fullWidth mt="xl" type="submit">
             Log in
           </Button>
         </form>
