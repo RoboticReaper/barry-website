@@ -31,43 +31,43 @@ export function Signup() {
 
 
   const createUser = () => {
-    if(name == ""){
+    if (name == "") {
       setNameError(true);
       return;
-    } else if (email == "" || !email.includes("@")){
+    } else if (email == "" || !email.includes("@")) {
       setEmailError(true);
       return;
-    } else if (password == ""){
+    } else if (password == "") {
       setPasswordError(true);
       return;
     }
 
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed up 
-      const user = userCredential.user;
-      updateProfile(user, {
-        displayName: name,
-      }).then(()=>{
-        console.log("Successfully Signed up")
-        setUser(user);
-      })
-    }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      .then((userCredential) => {
+        // Signed up 
+        const user = userCredential.user;
+        updateProfile(user, {
+          displayName: name,
+        }).then(() => {
+          console.log("Successfully Signed up")
+          setUser(user);
+        })
+      }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
 
-      notifications.show({
-        color: "red",
-        title: errorCode,
-        message: errorMessage,
-      })
+        notifications.show({
+          color: "red",
+          title: errorCode,
+          message: errorMessage,
+        })
 
-      console.log(errorCode);
-      console.log(errorMessage);
-      // ..
-    });
-  
+        console.log(errorCode);
+        console.log(errorMessage);
+        // ..
+      });
+
   }
 
   return (
@@ -83,17 +83,19 @@ export function Signup() {
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <FocusTrap active>
-          <div>
-            <TextInput label="Name" placeholder="Your name" required value={name} onChange={(e) => {setName(e.currentTarget.value); setNameError(false);}} error={nameError}/>
-            <TextInput label="Email" placeholder="Your email" required mt="md" value={email} onChange={(e) => {setEmail(e.currentTarget.value); setEmailError(false);}} error={emailError}/>
-            <PasswordInput label="Password" placeholder="Your password" required mt="md" value={password} onChange={(e) => {setPassword(e.currentTarget.value); setPasswordError(false);}} error={passwordError}/>
-          </div>
-        </FocusTrap>
+        <form onSubmit={()=>{createUser()}}>
+          <FocusTrap active>
+            <div>
+              <TextInput label="Name" placeholder="Your name" required value={name} onChange={(e) => { setName(e.currentTarget.value); setNameError(false); }} error={nameError} />
+              <TextInput label="Email" placeholder="Your email" required mt="md" value={email} onChange={(e) => { setEmail(e.currentTarget.value); setEmailError(false); }} error={emailError} />
+              <PasswordInput label="Password" placeholder="Your password" required mt="md" value={password} onChange={(e) => { setPassword(e.currentTarget.value); setPasswordError(false); }} error={passwordError} />
+            </div>
+          </FocusTrap>
 
-        <Button fullWidth mt="xl" onClick={createUser}>
-          Sign up
-        </Button>
+          <Button fullWidth mt="xl" onClick={createUser} type="submit">
+            Sign up
+          </Button>
+        </form>
       </Paper>
     </Container>
   );

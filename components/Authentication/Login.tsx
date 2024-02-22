@@ -27,18 +27,18 @@ export function Login() {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
-  
+
   const auth = getAuth();
 
   const LogInUser = () => {
-    if (email == "" || !email.includes("@")){
+    if (email == "" || !email.includes("@")) {
       setEmailError(true);
       return;
-    } else if (password == ""){
+    } else if (password == "") {
       setPasswordError(true);
       return;
     }
-    
+
     signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
       const user = userCredential.user;
       console.log("Successfully logged in");
@@ -58,7 +58,7 @@ export function Login() {
       // ..
     });
   }
-  
+
 
   return (
     <Container size={420} my={40}>
@@ -79,20 +79,22 @@ export function Login() {
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <FocusTrap active>
-          <div>
-            <TextInput label="Email" placeholder="Your email" required value={email} onChange={(e) => { setEmail(e.currentTarget.value); setEmailError(false); }} error={emailError} />
-            <PasswordInput label="Password" placeholder="Your password" required mt="md" value={password} onChange={(e) => { setPassword(e.currentTarget.value); setPasswordError(false); }} error={passwordError} />
-          </div>
-        </FocusTrap>
-        <Group justify="space-between" mt="lg">
-          <Anchor component="button" size="sm" onClick={() => { setOpenedForgot(true) }}>
-            Forgot password?
-          </Anchor>
-        </Group>
-        <Button fullWidth mt="xl" onClick={LogInUser}>
-          Log in
-        </Button>
+        <form onSubmit={()=>{LogInUser()}}>
+          <FocusTrap active>
+            <div>
+              <TextInput label="Email" placeholder="Your email" required value={email} onChange={(e) => { setEmail(e.currentTarget.value); setEmailError(false); }} error={emailError} />
+              <PasswordInput label="Password" placeholder="Your password" required mt="md" value={password} onChange={(e) => { setPassword(e.currentTarget.value); setPasswordError(false); }} error={passwordError} />
+            </div>
+          </FocusTrap>
+          <Group justify="space-between" mt="lg">
+            <Anchor size="sm" onClick={() => { setOpenedForgot(true) }}>
+              Forgot password?
+            </Anchor>
+          </Group>
+          <Button fullWidth mt="xl" onClick={LogInUser} type="submit">
+            Log in
+          </Button>
+        </form>
       </Paper>
     </Container>
   );
