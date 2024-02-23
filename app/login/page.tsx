@@ -5,9 +5,13 @@ import { useRouter } from 'next/navigation';
 import { user as initUser } from '@/app/fb';
 import { useEffect, useState } from 'react';
 
-export default function LoginPage(){
+export default function LoginPage() {
     const [user, changeUser] = useState(initUser);
     const router = useRouter();
+
+    if (user != null) {
+        router.replace("/profile");
+    }
 
     useEffect(() => {
         // listen to user data event
@@ -20,9 +24,7 @@ export default function LoginPage(){
 
     }, [])
 
-    if(user!=null){
-        router.replace("/profile");
-    }
+
 
     return <>
         <HeaderMegaMenu />

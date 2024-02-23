@@ -5,8 +5,8 @@ import { theme } from '../theme';
 import '@mantine/notifications/styles.css';
 
 export const metadata = {
-  title: "Barry's Elite Tennis Academy",
-  description: 'Welcome to my tennis class!',
+  title: "Barry's Elite Soccer and Tennis Academy",
+  description: 'Welcome to my academy!',
 };
 
 export default function RootLayout({ children }: { children: any }) {

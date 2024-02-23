@@ -2,46 +2,38 @@
 import { useState } from 'react';
 import { Group, Code, UnstyledButton, Text } from '@mantine/core';
 import {
-    IconBellRinging,
-    IconFingerprint,
-    IconKey,
-    IconSettings,
-    Icon2fa,
-    IconDatabaseImport,
-    IconReceipt2,
-    IconSwitchHorizontal,
+    IconBookmarks,
+    IconUser,
+    IconHistory,
+    IconMessage,
     IconLogout,
+    IconHome,
 } from '@tabler/icons-react';
-import { MantineLogo } from '@mantinex/mantine-logo';
+import Link from 'next/link';
 import { getAuth, signOut } from "firebase/auth";
 import classes from './SideNavbar.module.css';
 
 const data = [
-    { link: '', label: 'Notifications', icon: IconBellRinging },
-    { link: '', label: 'Billing', icon: IconReceipt2 },
-    { link: '', label: 'Security', icon: IconFingerprint },
-    { link: '', label: 'Databases', icon: IconDatabaseImport },
-    { link: '', label: 'Other Settings', icon: IconSettings },
+    { link: '/profile', label: 'Home', icon: IconHome },
+    { link: '/account', label: 'Account', icon: IconUser },
+    { link: '/message', label: 'Message', icon: IconMessage},
+    { link: '/book', label: 'Book Lessons', icon: IconBookmarks },
+    { link: '/history', label: 'History', icon: IconHistory },
 ];
 
-export function SideNavbar() {
+export function SideNavbar({index = 0}) {
     const auth = getAuth();
-    const [active, setActive] = useState('Billing');
 
-    const links = data.map((item) => (
-        <a
+    const links = data.map((item, i) => (
+        <Link
             className={classes.link}
-            data-active={item.label === active || undefined}
+            data-active={index == i || undefined }
             href={item.link}
             key={item.label}
-            onClick={(event) => {
-                event.preventDefault();
-                setActive(item.label);
-            }}
         >
             <item.icon className={classes.linkIcon} stroke={1.5} />
             <span className={classes.shorten}>{item.label}</span>
-        </a>
+        </Link>
     ));
 
     return (

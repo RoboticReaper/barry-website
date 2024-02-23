@@ -18,7 +18,7 @@ import {
   ScrollArea,
   rem,
   useMantineTheme,
-  Avatar,
+  Image
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 import classes2 from './ProfileControl.module.css';
@@ -36,7 +36,7 @@ import {
 } from '@tabler/icons-react';
 import classes from './HeaderMegaMenu.module.css';
 import '@/app/fb'
-import { user as initUser} from '@/app/fb';
+import { user as initUser } from '@/app/fb';
 import { useEffect, useState } from 'react';
 import { User } from 'firebase/auth';
 import { MantineProvider } from '@mantine/core';
@@ -83,53 +83,53 @@ export function HeaderMegaMenu() {
   const theme = useMantineTheme();
   const router = useRouter();
 
-  useEffect(()=>{
+  useEffect(() => {
     // listen to user data event
-    document.addEventListener('userChanged', (u)=>{
+    document.addEventListener('userChanged', (u) => {
       // @ts-ignore
-      var newUser : User = u.detail.newUser;
+      var newUser: User = u.detail.newUser;
       changeUser(newUser);
     })
 
-    
+
   }, [])
 
-  function ProfileControl(){
+  function ProfileControl() {
     return (
-      <UnstyledButton className={classes2.user} onClick={()=>{router.push("/profile")}}>
+      <UnstyledButton className={classes2.user} onClick={() => { router.push("/profile") }}>
         <Group>
-  
+
           <div style={{ flex: 1 }}>
             <Text size="sm" fw={500}>
               {user.displayName}
             </Text>
-  
+
             <Text c="dimmed" size="xs">
               {user.email}
             </Text>
           </div>
-  
+
           <IconChevronRight style={{ width: rem(14), height: rem(14) }} stroke={1.5} />
         </Group>
       </UnstyledButton>
     );
   }
 
-  function ProfileControlSmall(){
+  function ProfileControlSmall() {
     return (
-      <UnstyledButton className={classes2.userSmall} onClick={()=>{router.push("/profile")}}>
+      <UnstyledButton className={classes2.userSmall} onClick={() => { router.push("/profile") }}>
         <Group>
-  
+
           <div style={{ flex: 1 }}>
             <Text size="sm" fw={500}>
               {user.displayName}
             </Text>
-  
+
             <Text c="dimmed" size="xs">
               {user.email}
             </Text>
           </div>
-  
+
           <IconChevronRight style={{ width: rem(14), height: rem(14) }} stroke={1.5} />
         </Group>
       </UnstyledButton>
@@ -157,13 +157,13 @@ export function HeaderMegaMenu() {
   return (
     <Box>
       <MantineProvider>
-        <Notifications autoClose={4000}/>
+        <Notifications autoClose={4000} />
       </MantineProvider>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
-          {/* <MantineLogo size={30} /> */}
-          Logo here
-
+          <Link href="/" style={{height: "100%"}}>
+            <Image src="/logoFull.jpg" h="100%"/>
+          </Link>
           <Group h="100%" gap={0} visibleFrom="sm">
             <Link href="/" className={classes.link}>
               Home
@@ -216,17 +216,17 @@ export function HeaderMegaMenu() {
               About Us
             </Link>
             <a href="#" className={classes.link}>
-              Blog
+              Gallery
             </a>
           </Group>
 
 
           {user == null ? <Group visibleFrom="sm">
-            
+
             <Button variant="default" component={Link} href="/login">Log in</Button>
             <Button component={Link} href="/signup">Sign up</Button>
           </Group> : <ProfileControl />}
-          
+
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>
@@ -263,7 +263,7 @@ export function HeaderMegaMenu() {
             About us
           </Link>
           <Link href="#" className={classes.link}>
-            Blog
+            Gallery
           </Link>
 
           <Divider my="sm" />
@@ -272,8 +272,8 @@ export function HeaderMegaMenu() {
             <Button variant="default" component={Link} href="/login">Log in</Button>
             <Button component={Link} href="/signup">Sign up</Button>
           </Group> : <ProfileControlSmall />}
-          
-          
+
+
         </ScrollArea>
       </Drawer>
     </Box>

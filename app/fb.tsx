@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { User } from "firebase/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -31,7 +32,7 @@ onAuthStateChanged(auth, (user) => {
   setUser(user);
 });
 
-
+export const db = getFirestore(app);
 
 export var user: User;
 
@@ -43,5 +44,6 @@ export function setUser(u: User) {
     }
   })
   console.log("User has been updated");
+  console.log(user)
   document.dispatchEvent(event);
 }

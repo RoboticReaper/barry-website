@@ -9,7 +9,7 @@ export function HeroImageBackground() {
 
       <div className={classes.inner}>
         <Title className={classes.title}>
-          Welcome to Barry's Elite Tennis Academy{' '}
+          Welcome to BEST Academy{' '}
           {/* <Text component="span" inherit className={classes.highlight}>
             any stack
           </Text> */}

@@ -11,7 +11,7 @@
     }
 
     @media (max-width: $mantine-breakpoint-sm) {
-      visibility: hidden;
+      display: none;
     }
   }
 
@@ -29,6 +29,6 @@
     }
 
     @media (min-width: $mantine-breakpoint-sm) {
-      visibility: hidden;
+      display: none;
     }
   }

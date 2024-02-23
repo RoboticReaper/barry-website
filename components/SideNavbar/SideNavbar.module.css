@@ -1,15 +1,24 @@
 .navbar {
-  height: rem(700px);
-  width: rem(300px);
+  height: 100%;
+  /* width: rem(300px); */
+  width: 20%;
   padding: var(--mantine-spacing-md);
   display: flex;
+  flex: none;
   flex-direction: column;
   border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+
+
+  @media (max-width: $mantine-breakpoint-md) {
+    width: rem(100px);
+    padding: var(--mantine-spacing-sm);
+  }
 
   @media (max-width: $mantine-breakpoint-sm) {
     width: rem(82px);
     padding: var(--mantine-spacing-xs);
   }
+
 }
 
 .navbarMain {
@@ -20,7 +29,8 @@
   padding-bottom: var(--mantine-spacing-md);
   margin-bottom: calc(var(--mantine-spacing-md) * 1.5);
   border-bottom: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-  @media (max-width: $mantine-breakpoint-sm) {
+
+  @media (max-width: $mantine-breakpoint-md) {
     align-items: center;
     text-align: center;
   }
@@ -33,7 +43,7 @@
 }
 
 .shorten {
-  @media (max-width: $mantine-breakpoint-sm) {
+  @media (max-width: $mantine-breakpoint-md) {
     display: none;
   }
 }
@@ -57,13 +67,14 @@
     }
   }
 
-  @media (max-width: $mantine-breakpoint-sm) {
+  @media (max-width: $mantine-breakpoint-md) {
     margin-left: auto;
     margin-right: auto;
   }
 
 
   &[data-active] {
+
     &,
     &:hover {
       background-color: var(--mantine-color-blue-light);
@@ -82,7 +93,7 @@
   width: rem(25px);
   height: rem(25px);
 
-  @media (max-width: $mantine-breakpoint-sm) {
+  @media (max-width: $mantine-breakpoint-md) {
     margin-left: auto;
     margin-right: auto;
   }
