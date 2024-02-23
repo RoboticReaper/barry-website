@@ -39,11 +39,7 @@ export function SideNavbar({index = 0}) {
     return (
         <nav className={classes.navbar}>
             <div className={classes.navbarMain}>
-                <Group className={classes.header} justify="space-between">
-                    <Text size="lg" fw={700}>
-                        Profile
-                    </Text>
-                </Group>
+                
                 {links}
             </div>
 
