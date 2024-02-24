@@ -17,8 +17,8 @@ import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "fire
 import { db } from '@/app/fb';
 
 export default function GalleryEditPage() {
-    const [imageLinks, setimageLinks] = useState();
-    const [imageNames, setimageNames] = useState();
+    const [imageLinks, setimageLinks] = useState<string[]>([]);
+    const [imageNames, setimageNames] = useState<string[]>([]);
     const [opened, { toggle }] = useDisclosure(true)
 
     useEffect(() => {
