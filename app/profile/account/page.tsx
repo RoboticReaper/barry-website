@@ -60,7 +60,7 @@ export default function AccountPage() {
                 phoneNumber: phone,
                 displayName: name,
                 email: email,
-            }).then(()=>{
+            }).then(() => {
                 updateProfile(user, {
                     displayName: name,
                 }).then(() => {
@@ -96,59 +96,51 @@ export default function AccountPage() {
 
     }, [])
 
-    return <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-        <HeaderMegaMenu />
-        <div style={{ display: "flex", flexDirection: "row", flex: "1" }}>
-            <SideNavbar index={1} />
-            <Container size="responsive" className={classes.mainContainer} my="md">
-                {!ready ? <Center h="100%"><Loader color="blue" /></Center> :
-                    <Grid grow>
-                        <Grid.Col span={{ base: 12, xs: 12 }}><Center><Button onClick={() => { saveData() }}>Save</Button></Center></Grid.Col>
-                        <Grid.Col span={{ base: 12, xs: 12 }}>
-                            <Paper className={classes.paper} withBorder>
-                                <b>Account information</b>
-                                <Grid grow>
-                                    <Grid.Col span={{ base: 12, xs: 4 }}>
-                                        <TextInput
-                                            radius="sm"
-                                            label="Name"
-                                            value={name}
-                                            onChange={(e) => { setName(e.currentTarget.value) }}
-                                            withAsterisk
-                                            placeholder="Your name"
-                                        />
-                                    </Grid.Col>
-                                    <Grid.Col span={{ base: 12, xs: 4 }}>
-                                        <TextInput
-                                            radius="sm"
-                                            label="Email"
-                                            value={email}
-                                            disabled
-                                            readOnly
-                                            withAsterisk
-                                            placeholder="Your email"
-                                        />
-                                    </Grid.Col>
-                                    <Grid.Col span={{ base: 12, xs: 4 }}>
-                                        <NumberInput
-                                            radius="sm"
-                                            label="Phone"
-                                            value={phone}
-                                            onChange={setPhone}
-                                            withAsterisk
-                                            placeholder="Phone number"
-                                        />
-                                    </Grid.Col>
+    return <Container size="responsive" className={classes.mainContainer} my="md">
+        {!ready ? <Center h="100%"><Loader color="blue" /></Center> :
+            <Grid grow>
+                <Grid.Col span={{ base: 12, xs: 12 }}><Center><Button onClick={() => { saveData() }}>Save</Button></Center></Grid.Col>
+                <Grid.Col span={{ base: 12, xs: 12 }}>
+                    <Paper className={classes.paper} withBorder>
+                        <b>Account information</b>
+                        <Grid grow>
+                            <Grid.Col span={{ base: 12, xs: 4 }}>
+                                <TextInput
+                                    radius="sm"
+                                    label="Name"
+                                    value={name}
+                                    onChange={(e) => { setName(e.currentTarget.value) }}
+                                    withAsterisk
+                                    placeholder="Your name"
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={{ base: 12, xs: 4 }}>
+                                <TextInput
+                                    radius="sm"
+                                    label="Email"
+                                    value={email}
+                                    disabled
+                                    readOnly
+                                    withAsterisk
+                                    placeholder="Your email"
+                                />
+                            </Grid.Col>
+                            <Grid.Col span={{ base: 12, xs: 4 }}>
+                                <NumberInput
+                                    radius="sm"
+                                    label="Phone"
+                                    value={phone}
+                                    onChange={setPhone}
+                                    withAsterisk
+                                    placeholder="Phone number"
+                                />
+                            </Grid.Col>
 
-                                </Grid>
-                            </Paper>
-                        </Grid.Col>
-                    </Grid>
-                }
-            </Container>
-        </div>
-
-
-    </div>
+                        </Grid>
+                    </Paper>
+                </Grid.Col>
+            </Grid>
+        }
+    </Container>
 
 }

@@ -1,0 +1,11 @@
+.mainContainer {
+    padding: rem(10px);
+    margin: rem(10px);
+    width: 100%;
+}
+
+.video{
+    @media (max-width: $mantine-breakpoint-sm) {
+        max-width: rem(220px);
+    }
+}

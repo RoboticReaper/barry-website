@@ -19,13 +19,17 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
+    "@hello-pangea/dnd": "^16.5.0",
     "@mantine/core": "^7.5.3",
+    "@mantine/dropzone": "^7.5.3",
     "@mantine/form": "^7.5.3",
     "@mantine/hooks": "7.5.3",
     "@mantine/notifications": "^7.5.3",
     "@mantinex/mantine-logo": "^1.0.1",
     "@next/bundle-analyzer": "^14.0.1",
     "@tabler/icons-react": "^2.40.0",
+    "clsx": "^2.1.0",
+    "encoding": "^0.1.13",
     "firebase": "^10.6.0",
     "next": "14.0.1",
     "nookies": "^2.5.2",

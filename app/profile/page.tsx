@@ -31,51 +31,43 @@ export default function ProfilePage() {
 
 
 
-    return <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-        <HeaderMegaMenu />
-        <div style={{ display: "flex", flexDirection: "row", flex: "1" }}>
-            <SideNavbar index={0} />
-            <Container size="responsive" className={classes.mainContainer} my="md">
-                {user == null ? <Center h="100%"><Loader color="blue" /></Center> :
-                    <Grid grow>
-                        <Grid.Col span={{ base: 12, xs: 12 }}>
-                            <Paper className={classes.paper} withBorder>
-                                <Grid grow>
-                                    <Grid.Col span={{ base: 12, xs: 8 }}>
-                                        <div style={{ display: 'flex' }}>
+    return <Container size="responsive" className={classes.mainContainer} my="md">
+        {user == null ? <Center h="100%"><Loader color="blue" /></Center> :
+            <Grid grow>
+                <Grid.Col span={{ base: 12, xs: 12 }}>
+                    <Paper className={classes.paper} withBorder>
+                        <Grid grow>
+                            <Grid.Col span={{ base: 12, xs: 8 }}>
+                                <div style={{ display: 'flex' }}>
 
-                                            <AspectRatio ratio={1} className={classes.photo}><Image
-                                                src={user.photoURL}
-                                                alt="Avatar"
-                                                className={classes.photo}
-                                                fallbackSrc="/blankAvatar.png"
-                                                
-                                            /></AspectRatio>
+                                    <AspectRatio ratio={1} className={classes.photo}><Image
+                                        src={user.photoURL}
+                                        alt="Avatar"
+                                        className={classes.photo}
+                                        fallbackSrc="/blankAvatar.png"
+
+                                    /></AspectRatio>
 
 
-                                            <div className={classes.userInfo}>
-                                                <Text size="xl" fw={700}>
-                                                    {user.displayName}
-                                                </Text>
-                                                <Text size="xs" fw={400}>
-                                                    {user.email}
-                                                </Text>
-                                            </div>
-                                        </div>
-                                    </Grid.Col>
-                                    <Grid.Col span={{ base: 12, xs: 4 }}>
-                                        <div className={classes.right}>
-                                            Auto-billing: (on/off)
-                                        </div>
-                                    </Grid.Col>
-                                </Grid>
-                            </Paper>
-                        </Grid.Col>
-                    </Grid>
-                }
-            </Container>
-        </div>
-
-
-    </div>
+                                    <div className={classes.userInfo}>
+                                        <Text size="xl" fw={700}>
+                                            {user.displayName}
+                                        </Text>
+                                        <Text size="xs" fw={400}>
+                                            {user.email}
+                                        </Text>
+                                    </div>
+                                </div>
+                            </Grid.Col>
+                            <Grid.Col span={{ base: 12, xs: 4 }}>
+                                <div className={classes.right}>
+                                    Auto-billing: (on/off)
+                                </div>
+                            </Grid.Col>
+                        </Grid>
+                    </Paper>
+                </Grid.Col>
+            </Grid>
+        }
+    </Container>
 }

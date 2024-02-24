@@ -24,6 +24,7 @@ import classes2 from './ProfileControl.module.css';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDisclosure } from '@mantine/hooks';
+import { usePathname } from 'next/navigation';
 import {
   IconNotification,
   IconCode,
@@ -76,6 +77,7 @@ const mockdata = [
 
 
 export function HeaderMegaMenu() {
+  const pathname = usePathname();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const [user, changeUser] = useState(initUser);
@@ -92,6 +94,10 @@ export function HeaderMegaMenu() {
 
 
   }, [])
+
+  useEffect(()=>{
+    closeDrawer();
+  }, [pathname])
 
   function ProfileControl() {
     return (
@@ -153,15 +159,18 @@ export function HeaderMegaMenu() {
     </UnstyledButton>
   ));
 
+  // visibleFrom or hiddenFrom sm breaks when width is exactly sm.
+  // So replacing with pixels instead (768px)
+
   return (
     <Box>
       <MantineProvider>
-        <Notifications autoClose={4000} />
+        <Notifications autoClose={3000} />
       </MantineProvider>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           <Link href="/" style={{height: "100%"}}>
-            <Image src="/logoFull.jpg" h="100%"/>
+            <Image src="/logoFull.jpg" mah="100%"/>
           </Link>
           <Group h="100%" gap={0} visibleFrom="sm">
             <Link href="/" className={classes.link}>
@@ -214,9 +223,9 @@ export function HeaderMegaMenu() {
             <Link href="/about" className={classes.link}>
               About Us
             </Link>
-            <a href="#" className={classes.link}>
+            <Link href="/gallery" className={classes.link}>
               Gallery
-            </a>
+            </Link>
           </Group>
 
 
@@ -261,7 +270,7 @@ export function HeaderMegaMenu() {
           <Link href="/about" className={classes.link}>
             About us
           </Link>
-          <Link href="#" className={classes.link}>
+          <Link href="/gallery" className={classes.link}>
             Gallery
           </Link>
 

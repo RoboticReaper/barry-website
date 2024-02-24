@@ -22,8 +22,12 @@ const firebaseConfig = {
   measurementId: "G-VWN6D50QDC"
 };
 
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+
+
 const analytics = isSupported().then(yes => yes ? getAnalytics(app) : null);
 
 const auth = getAuth();

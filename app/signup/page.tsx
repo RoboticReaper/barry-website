@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { user as initUser } from '@/app/fb';
 import { useEffect, useState } from 'react';
 
+
 export default function SignUpPage() {
     const [user, changeUser] = useState(initUser);
     const router = useRouter();
