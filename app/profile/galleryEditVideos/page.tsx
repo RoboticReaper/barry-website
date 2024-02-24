@@ -16,7 +16,7 @@ import { notifications } from '@mantine/notifications';
 import { db } from '@/app/fb';
 
 export default function GalleryEditVideosPage() {
-    const [videoLinks, setvideoLinks] = useState();
+    const [videoLinks, setvideoLinks] = useState<string[]>();
     const [opened, { toggle }] = useDisclosure(true)
 
     useEffect(() => {

@@ -10,8 +10,8 @@ import { HeaderMegaMenu } from "@/components/HeaderMegaMenu/HeaderMegaMenu"
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 export default function GalleryPage() {
-    const [imgLinks, setImgLinks] = useState();
-    const [vidLinks, setVidLinks] = useState();
+    const [imgLinks, setImgLinks] = useState<string[]>();
+    const [vidLinks, setVidLinks] = useState<string[]>();
 
     useEffect(() => {
         const docRef = doc(db, "public", "gallery");
