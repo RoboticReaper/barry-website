@@ -6,6 +6,7 @@ import classes from './NotFound.module.css';
 export default function notFound() {
   return (
     <div>
+      <HeaderMegaMenu />
       <Container className={classes.root}>
         <div className={classes.label}>404</div>
         <Title className={classes.title}>Page does not exist.</Title>
