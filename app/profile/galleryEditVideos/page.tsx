@@ -17,6 +17,7 @@ import { db } from '@/app/fb';
 
 export default function GalleryEditVideosPage() {
     const [videoLinks, setvideoLinks] = useState<string[]>();
+    const [newLink, setNewLink] = useState("")
     const [opened, { toggle }] = useDisclosure(true)
 
     useEffect(() => {
@@ -29,7 +30,7 @@ export default function GalleryEditVideosPage() {
         })
     }, [])
 
-    function reorderFirestore(s) {
+    function reorderFirestore(s:any) {
         updateDoc(doc(db, "public", "gallery"), { videos: JSON.stringify(s) }).then(() => {
             notifications.show({
                 color: "green",
@@ -39,8 +40,10 @@ export default function GalleryEditVideosPage() {
         })
     }
 
-    function deleteVideo(index, state) {
-
+    function deleteVideo(index:number, state:any) {
+        if(videoLinks === undefined){
+            return;
+        }
         var tempLink = videoLinks.filter((val) => {
             return val !== videoLinks[index]
         })
@@ -52,7 +55,10 @@ export default function GalleryEditVideosPage() {
     }
 
     function processNewVideo() {
-        var newLink = document.getElementById("newLink");
+        
+        if(videoLinks === undefined || newLink.trim() === "" ){
+            return;
+        }
         var tempLink = [...videoLinks, newLink];
 
         updateDoc(doc(db, "public", "gallery"), { videos: JSON.stringify(tempLink) }).then(() => {
@@ -69,7 +75,7 @@ export default function GalleryEditVideosPage() {
 
         const items = state.map((item, index) => (
             <Center key={item}>
-                <Draggable index={index} draggableId={item}>
+                <Draggable index={index} draggableId={item+""+index}>
                     {(provided, snapshot) => (
                         <div
                             className={cx(classes2.item, { [classes2.itemDragging]: snapshot.isDragging })}
@@ -131,7 +137,7 @@ export default function GalleryEditVideosPage() {
                 <b>Add video</b>
             </Text>
             <Container size="sm">
-                <TextInput label="YouTube video ID:" placeholder='XujgbA94fx8' id="newLink" description="Right click video, Stats for nerds, Video ID" />
+                <TextInput label="YouTube video ID:" placeholder='Paste ID here' id="newLink" value={newLink} onChange={(e)=>{setNewLink(e.currentTarget.value)}} description="Right click video, Stats for nerds, Video ID" />
                 <Button onClick={() => { processNewVideo() }} mt="sm">Add video</Button>
             </Container>
         </div>

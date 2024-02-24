@@ -41,7 +41,7 @@ export default function GalleryEditPage() {
         })
     }, [])
 
-    function reorderFirestore(s) {
+    function reorderFirestore(s:any) {
         var names = []
         for (var i = 0; i < s.length; i++) {
             names.push(s[i].imageNames)
@@ -55,11 +55,13 @@ export default function GalleryEditPage() {
         })
     }
 
-    function deletePhoto(index, state) {
+    function deletePhoto(index:number, state: any) {
         const storage = getStorage();
         const deleteRef = ref(storage, 'galleryPhotos/' + state[index].imageNames)
         deleteObject(deleteRef).then(() => {
-
+            if(imageNames === undefined || imageLinks === undefined){
+                return;
+            }
             var tempName = imageNames.filter((val) => {
                 return val !== state[index].imageNames
             })
@@ -79,7 +81,7 @@ export default function GalleryEditPage() {
         })
     }
 
-    function processNewFile(files) {
+    function processNewFile(files:File[]) {
         if (files.length > 1) {
             notifications.show({
                 color: "Red",
@@ -98,7 +100,9 @@ export default function GalleryEditPage() {
 
         uploadBytes(imageRef, file).then((snapshot) => {
             getDownloadURL(imageRef).then((url) => {
-                console.log(url)
+                if(imageNames === undefined || imageLinks === undefined){
+                    return;
+                }
                 updateDoc(doc(db, "public", "gallery"), {
                     imageNames: JSON.stringify([...imageNames, file.name])
                 })
@@ -110,6 +114,9 @@ export default function GalleryEditPage() {
     }
 
     function DragDrop() {
+        if(imageNames === undefined || imageLinks === undefined){
+            return;
+        }
         var d = []
         for (var i = 0; i < imageLinks.length; i++) {
             d.push({ imageLinks: imageLinks[i], imageNames: imageNames[i] })
