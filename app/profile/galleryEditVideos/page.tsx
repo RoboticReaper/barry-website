@@ -75,14 +75,13 @@ export default function GalleryEditVideosPage() {
 
         const items = state.map((item, index) => (
             <Center key={item}>
-                <Draggable index={index} draggableId={item+""+index}>
+                <Draggable index={index} draggableId={item}>
                     {(provided, snapshot) => (
                         <div
                             className={cx(classes2.item, { [classes2.itemDragging]: snapshot.isDragging })}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             ref={provided.innerRef}
-                            style={{display: "flex"}}
                         >
                             <iframe src={"https://www.youtube.com/embed/" + item} style={{ borderStyle: "none"}} className={classes.video} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                             <ActionIcon
