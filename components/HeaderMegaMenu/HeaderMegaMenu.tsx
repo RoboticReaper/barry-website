@@ -170,7 +170,7 @@ export function HeaderMegaMenu() {
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           <Link href="/" style={{height: "100%"}}>
-            <Image src="/logoFull.jpg" mah="100%"/>
+            <Image src="/logoFull.jpg" fit="contain" className={classes.logo}/>
           </Link>
           <Group h="100%" gap={0} visibleFrom="sm">
             <Link href="/" className={classes.link}>
