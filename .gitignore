@@ -132,3 +132,6 @@ dist
 .DS_Store
 # Local Netlify folder
 .netlify
+
+# Ignore functions folder
+functions/
