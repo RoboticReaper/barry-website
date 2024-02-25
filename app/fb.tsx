@@ -1,6 +1,7 @@
 'use client'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getFunctions } from 'firebase/functions';
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { User } from "firebase/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -25,7 +26,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
+const functions = getFunctions(app);
 
 
 const analytics = isSupported().then(yes => yes ? getAnalytics(app) : null);
