@@ -19,13 +19,13 @@ export default function ProfilePage() {
         // listen to user data event
         document.addEventListener('userChanged', (u) => {
             console.log("User changed")
-            const functions = getFunctions();
-            const plusone = httpsCallable(
-                functions, 'plusone'
-            )
-            plusone().then((result) => {
-                console.log(result.data)
-            })
+            // const functions = getFunctions();
+            // const plusone = httpsCallable(
+            //     functions, 'plusone'
+            // )
+            // plusone().then((result) => {
+            //     console.log(result.data)
+            // })
             // const plusone = httpsCallable(
             //     functions, 'hello'
             // )
