@@ -31,7 +31,7 @@ export default function ProfilePage() {
             // )
             // plusone().then((result) => {
             //     console.log(result.data)
-            // })
+            // }) 
             // @ts-ignore
             var newUser: User = u.detail.newUser;
             changeUser(newUser);
