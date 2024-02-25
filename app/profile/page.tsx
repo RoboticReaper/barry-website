@@ -24,7 +24,7 @@ export default function ProfilePage() {
                 functions, 'plusone'
             )
             plusone().then((result) => {
-                console.log(result.data.finalNum)
+                console.log(result.data)
             })
             // const plusone = httpsCallable(
             //     functions, 'hello'
