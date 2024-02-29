@@ -26,7 +26,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const functions = getFunctions(app);
+export const functions = getFunctions(app);
 
 
 const analytics = isSupported().then(yes => yes ? getAnalytics(app) : null);

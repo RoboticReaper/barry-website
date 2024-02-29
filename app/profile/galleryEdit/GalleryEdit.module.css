@@ -5,7 +5,9 @@
 }
 
 .video{
+    max-width: rem(300px);
+
     @media (max-width: $mantine-breakpoint-sm) {
-        max-width: rem(220px);
+        max-width: rem(200px);
     }
 }

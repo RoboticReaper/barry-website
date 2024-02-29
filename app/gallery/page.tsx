@@ -19,18 +19,25 @@ export default function GalleryPage() {
             if (docSnap.exists()) {
                 const data = docSnap.data();
                 const names = JSON.parse(data.imageNames)
-                const videos = JSON.parse(data.videos)
+                const videos = JSON.parse(data.videoNames)
 
                 const storage = getStorage();
-                var promises = []
+                var imgPromises = []
                 for (var i = 0; i < names.length; i++) {
-                    promises.push(getDownloadURL(ref(storage, 'galleryPhotos/' + names[i])));
+                    imgPromises.push(getDownloadURL(ref(storage, 'galleryPhotos/' + names[i])));
                 }
 
-                setVidLinks(videos);
+                var vidPromises = []
+                for (var i = 0; i < videos.length; i++) {
+                    vidPromises.push(getDownloadURL(ref(storage, 'galleryVideos/' + videos[i])));
+                }
 
-                Promise.all(promises).then((readyLinks) => {
+                Promise.all(imgPromises).then((readyLinks) => {
                     setImgLinks(readyLinks);
+                })
+
+                Promise.all(vidPromises).then((vidReadyLinks) => {
+                    setVidLinks(vidReadyLinks)
                 })
             }
         })
@@ -65,7 +72,11 @@ export default function GalleryPage() {
                 //@ts-ignore
                 vidLinks != undefined ? vidLinks.map((item) => {
                     return <Grid.Col span={{ base: 12, xs: 12, sm: 6, lg: 4 }} key={item}><AspectRatio ratio={16 / 9} mx="auto">
-                        <iframe src={"https://www.youtube.com/embed/"+item} style={{borderStyle:"none"}} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                        <video controls>
+                            <source src={item} type="video/mp4" />
+                            <source src={item} type="video/webm" />
+                            <source src={item} type="video/ogg" />
+                        </video>
                     </AspectRatio></Grid.Col>
                 }) : <Loader color='blue' />}
 

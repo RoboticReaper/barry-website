@@ -8,7 +8,7 @@ import { Container } from '@mantine/core';
 import { Loader, Center } from '@mantine/core';
 import classes from "./Profile.module.css";
 import { Text, Paper, Grid } from '@mantine/core';
-import { getFunctions, httpsCallable } from "firebase/functions";
+
 import { AspectRatio, Image, rem } from '@mantine/core';
 
 export default function ProfilePage() {
@@ -18,20 +18,7 @@ export default function ProfilePage() {
     useEffect(() => {
         // listen to user data event
         document.addEventListener('userChanged', (u) => {
-            console.log("User changed")
-            // const functions = getFunctions();
-            // const plusone = httpsCallable(
-            //     functions, 'plusone'
-            // )
-            // plusone().then((result) => {
-            //     console.log(result.data)
-            // })
-            // const plusone = httpsCallable(
-            //     functions, 'hello'
-            // )
-            // plusone().then((result) => {
-            //     console.log(result.data)
-            // }) 
+            
             // @ts-ignore
             var newUser: User = u.detail.newUser;
             changeUser(newUser);

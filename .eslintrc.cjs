@@ -1,10 +1,12 @@
+import tseslint from 'typescript-eslint';
+
 module.exports = {
   extends: ['mantine', 'plugin:@next/next/recommended', 'plugin:jest/recommended'],
   plugins: ['testing-library', 'jest'],
   overrides: [
     {
       files: ['**/?(*.)+(spec|test).[jt]s?(x)'],
-      extends: ['plugin:testing-library/react'],
+      extends: ['plugin:testing-library/react', tseslint.configs.disableTypeChecked],
     },
   ],
   parserOptions: {

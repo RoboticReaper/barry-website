@@ -66,9 +66,6 @@ export default function GalleryEditPage() {
                 return val !== state[index].imageNames
             })
 
-            var tempLink = imageLinks.filter((val) => {
-                return val !== state[index].imageLinks
-            })
 
             updateDoc(doc(db, "public", "gallery"), { imageNames: JSON.stringify(tempName) }).then(() => {
                 setimageNames(tempName)
@@ -193,7 +190,7 @@ export default function GalleryEditPage() {
         <Dropzone
             onDrop={(files) => processNewFile(files)}
             onReject={(files) => console.log('rejected files', files)}
-            maxSize={10 * 1024 ** 2}
+            maxSize={20 * 1024 ** 2}
             accept={IMAGE_MIME_TYPE}
         >
             <Group justify="center" gap="xl" mih={220} style={{ pointerEvents: 'none' }}>
@@ -221,7 +218,7 @@ export default function GalleryEditPage() {
                         Drag an image here or click to select
                     </Text>
                     <Text size="sm" c="dimmed" inline mt={7}>
-                        Attach a file that does not exceed 10mb.
+                        Attach a file that does not exceed 20mb.
                     </Text>
                     <Text size="sm" c="dimmed" inline mt={7} >
                         DO NOT have duplicate names!
