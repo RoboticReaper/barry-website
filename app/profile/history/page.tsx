@@ -4,7 +4,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { httpsCallable } from "firebase/functions";
 import { functions } from "@/app/fb";
 import { useEffect } from 'react';
-import { Button, Container } from '@mantine/core';
+import { Button, Center, Container, Loader } from '@mantine/core';
 import cx from 'clsx';
 import { useState } from 'react';
 import { Table, ScrollArea } from '@mantine/core';
@@ -23,9 +23,11 @@ export default function HistoryPage() {
     const [lineItems, setLineItems] = useState([])
     const [scrolled, setScrolled] = useState(false);
     const [loading, setLoading] = useState(false)
+    const [initLoading, setInitLoading] = useState(true);
 
     useEffect(() => {
         if(paymentIntents.length != 0){
+            setInitLoading(false);
             return;
         }
         listPaymentIntents().then((result) => {
@@ -55,6 +57,7 @@ export default function HistoryPage() {
         setPaymentIntents(newIntent)
         setLineItems(newLineItems)
         setNextPage(intents.next_page)
+        setInitLoading(false);
     }
 
     function nextPage() {
@@ -79,6 +82,7 @@ export default function HistoryPage() {
                 <Table.Tbody>{rows}</Table.Tbody>
             </Table>
         </ScrollArea.Autosize>
+        {initLoading ? <Center><Loader m={10}/></Center> : null}
         <Button onClick={nextPage} disabled={next_page == null} loading={loading} className={classes.load}>Load 10 more</Button>
     </Container>
 }
