@@ -18,6 +18,7 @@ import { db } from '@/app/fb';
 import { doc, getDoc } from "firebase/firestore";
 import { usePathname } from 'next/navigation';
 import { user as initUser } from '@/app/fb';
+import { useRouter } from 'next/navigation';
 import { User } from 'firebase/auth';
 
 export function SideNavbar() {
@@ -25,6 +26,7 @@ export function SideNavbar() {
     const pathname = usePathname();
     const [active, setActive] = useState(pathname);
     const [isAdmin, setIsAdmin] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         setActive(pathname);
@@ -42,6 +44,8 @@ export function SideNavbar() {
             var newUser: User = u.detail.newUser;
             if (newUser != null) {
                 setNewUser(newUser);
+            } else {
+                router.replace('/')
             }
 
         })
@@ -143,7 +147,7 @@ export function SideNavbar() {
             </div>
 
             <div className={classes.footer}>
-                <UnstyledButton className={classes.link} component="a" onClick={() => { signOut(auth).then(() => { console.log("Successful") }) }}>
+                <UnstyledButton className={classes.link} onClick={() => { signOut(auth).then(() => { console.log("Successful") }) }}>
                     <IconLogout className={classes.linkIcon} stroke={1.5} />
                     <span className={classes.shorten}>Logout</span>
                 </UnstyledButton>

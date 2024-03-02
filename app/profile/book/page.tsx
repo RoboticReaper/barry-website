@@ -12,7 +12,7 @@ import { useDisclosure } from '@mantine/hooks';
 const stripePromise = loadStripe(
     // @ts-ignore
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
+)
 
 const createTennisCheckout = httpsCallable(functions, 'createTennisCheckoutSession')
 
@@ -22,9 +22,9 @@ export default function BookPage() {
     const [opened, { open, close }] = useDisclosure(false);
     const [loading, setLoading] = useState(false);
 
-    function tennisCheckout() {
+    function tennisCheckout(price_id:string) {
         setLoading(true);
-        createTennisCheckout({ origin: window.location.origin + window.location.pathname }).then((result) => {
+        createTennisCheckout({ origin: window.location.origin + window.location.pathname, price_id: price_id}).then((result) => {
             // @ts-ignore
             const url = result.data.checkoutURL;
             router.push(url);
@@ -56,6 +56,9 @@ export default function BookPage() {
         <Modal opened={opened} onClose={close} centered withCloseButton={false}>
             Payment {status}
         </Modal>
-        <Button onClick={() => { tennisCheckout() }} loaderProps={{type:"oval"}} loading={loading}>Order</Button>
+        <Button onClick={() => { tennisCheckout("price_1OodnFEDoq2Jukn9dJIPfh1I") }} loaderProps={{type:"oval"}} loading={loading}>Order 1 on 1 lesson</Button>
+        <br />
+        <br />
+        <Button onClick={() => { tennisCheckout("price_1Opz9NEDoq2Jukn94GOr0r3d") }} loaderProps={{type:"oval"}} loading={loading}>Order group lesson</Button>
     </Container>
 }
