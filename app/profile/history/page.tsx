@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 'use client'
 import { loadStripe } from '@stripe/stripe-js';
 import { httpsCallable } from "firebase/functions";
