@@ -99,7 +99,6 @@ export default function AccountPage() {
     return <Container size="responsive" className={classes.mainContainer} my="md">
         {!ready ? <Center h="100%"><Loader color="blue" /></Center> :
             <Grid grow>
-                <Grid.Col span={{ base: 12, xs: 12 }}><Center><Button onClick={() => { saveData() }}>Save</Button></Center></Grid.Col>
                 <Grid.Col span={{ base: 12, xs: 12 }}>
                     <Paper className={classes.paper} withBorder>
                         <b>Account information</b>
@@ -139,6 +138,7 @@ export default function AccountPage() {
                         </Grid>
                     </Paper>
                 </Grid.Col>
+                <Grid.Col span={{ base: 12, xs: 12 }}><Center><Button onClick={() => { saveData() }}>Save</Button></Center></Grid.Col>
             </Grid>
         }
     </Container>

@@ -82,7 +82,7 @@ export function Signup() {
         <form onSubmit={(e)=>{e.preventDefault();createUser()}}>
           <FocusTrap active>
             <div>
-              <TextInput label="Name" placeholder="Your name" required value={name} onChange={(e) => { setName(e.currentTarget.value); }}  />
+              <TextInput label="Name" placeholder="First and last name" required value={name} onChange={(e) => { setName(e.currentTarget.value); }}  />
               <NumberInput label="Phone" placeholder="Phone number" required mt="md" value={phone} onChange={setPhone} />
               <TextInput label="Email" placeholder="Your email" required mt="md" value={email} onChange={(e) => { setEmail(e.currentTarget.value);}}  />
               <PasswordInput label="Password" placeholder="Your password" required mt="md" value={password} onChange={(e) => { setPassword(e.currentTarget.value);}} />
