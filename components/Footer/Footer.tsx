@@ -1,4 +1,4 @@
-import { Container, Group, ActionIcon, rem, Image } from '@mantine/core';
+import { Container, Group, ActionIcon, rem, Image, Center } from '@mantine/core';
 import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from '@tabler/icons-react';
 import { MantineLogo } from '@mantinex/mantine-logo';
 import classes from './Footer.module.css';
@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <div className={classes.footer}>
       <Container className={classes.inner}>
-        <Link href="/" style={{ height: "100%" }}>
+        <Link href="/" style={{ height: "100%" }} className={classes.link}>
           <Image src="/logoFull.jpg" fit="contain" className={classes.pic} />
         </Link>
         <Group gap={0} className={classes.links} justify="flex-end" wrap="nowrap">

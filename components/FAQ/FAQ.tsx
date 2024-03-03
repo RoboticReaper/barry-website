@@ -34,7 +34,7 @@ export function FAQ() {
           </Accordion.Item>
 
           <Accordion.Item className={classes.item} value="another-account">
-            <Accordion.Control>Can I create more that one account?</Accordion.Control>
+            <Accordion.Control>Can I create more than one account?</Accordion.Control>
             <Accordion.Panel>{placeholder}</Accordion.Panel>
           </Accordion.Item>
 
@@ -49,7 +49,7 @@ export function FAQ() {
           </Accordion.Item>
 
           <Accordion.Item className={classes.item} value="payment">
-            <Accordion.Control>What payment systems to you work with?</Accordion.Control>
+            <Accordion.Control>What payment systems do you work with?</Accordion.Control>
             <Accordion.Panel>{placeholder}</Accordion.Panel>
           </Accordion.Item>
         </Accordion>

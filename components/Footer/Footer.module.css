@@ -26,7 +26,18 @@
   width: auto;
 
   @media (max-width: $mantine-breakpoint-xs){
+    width: 100%;
+    align-content: center;
+    height: auto;
+  }
+}
+
+.link{
+  width: auto;
+
+  @media (max-width: $mantine-breakpoint-xs){
     width: 50%;
+    align-content: center;
     height: auto;
   }
 }
