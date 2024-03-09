@@ -24,7 +24,7 @@ export default function GalleryEditVideosPage() {
         const docRef = doc(db, "public", "gallery");
         getDoc(docRef).then((docSnap) => {
             if (docSnap.exists()) {
-                const names = JSON.parse(docSnap.data().videoNames)
+                const names = docSnap.data().videoNames
 
                 const storage = getStorage();
                 var promises = []
@@ -45,7 +45,7 @@ export default function GalleryEditVideosPage() {
         for (var i = 0; i < s.length; i++) {
             names.push(s[i].videoNames)
         }
-        updateDoc(doc(db, "public", "gallery"), { videoNames: JSON.stringify(names) }).then(() => {
+        updateDoc(doc(db, "public", "gallery"), { videoNames: names}).then(() => {
             notifications.show({
                 color: "green",
                 title: "Saved",
@@ -65,7 +65,7 @@ export default function GalleryEditVideosPage() {
                 return val !== state[index].videoNames
             })
 
-            updateDoc(doc(db, "public", "gallery"), { videoNames: JSON.stringify(tempName) }).then(() => {
+            updateDoc(doc(db, "public", "gallery"), { videoNames: tempName }).then(() => {
                 setvideoNames(tempName)
                 var tempLink = videoLinks.filter((val) => {
                     return val !== state[index].videoLinks
@@ -99,7 +99,7 @@ export default function GalleryEditVideosPage() {
                     return;
                 }
                 updateDoc(doc(db, "public", "gallery"), {
-                    videoNames: JSON.stringify([...videoNames, file.name])
+                    videoNames: [...videoNames, file.name]
                 })
                 setvideoLinks([...videoLinks, url])
                 setvideoNames([...videoNames, file.name])

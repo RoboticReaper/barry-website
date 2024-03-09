@@ -21,12 +21,11 @@ export default function HistoryPage() {
     const [next_page, setNextPage] = useState()
     const [paymentIntents, setPaymentIntents] = useState([])
     const [lineItems, setLineItems] = useState([])
-    const [scrolled, setScrolled] = useState(false);
     const [loading, setLoading] = useState(false)
     const [initLoading, setInitLoading] = useState(true);
 
     useEffect(() => {
-        if(paymentIntents.length != 0){
+        if (paymentIntents.length != 0) {
             setInitLoading(false);
             return;
         }
@@ -37,20 +36,20 @@ export default function HistoryPage() {
 
     const rows = paymentIntents.map((row, index) => (
         <Table.Tr key={row.id}>
-            <Table.Td>{new Date(row.created*1000).toLocaleString()}</Table.Td>
+            <Table.Td>{new Date(row.created * 1000).toLocaleString()}</Table.Td>
             <Table.Td>{lineItems[index].description}</Table.Td>
-            <Table.Td>{row.currency == "usd" ? (row.amount/100 + " USD") : (row.amount + " in the smallest unit of " + row.currency.toUpperCase())}</Table.Td>
-            
+            <Table.Td>{row.currency == "usd" ? (row.amount / 100 + " USD") : (row.amount + " in the smallest unit of " + row.currency.toUpperCase())}</Table.Td>
+
         </Table.Tr>
     ));
 
     function processIntents(result) {
         const intents = result.data.paymentIntents
         const items = result.data.lineItems
-        
+
         var newIntent = paymentIntents;
         var newLineItems = lineItems;
-        for(var i = 0; i < intents.data.length; i++){
+        for (var i = 0; i < intents.data.length; i++) {
             newIntent.push(intents.data[i])
             newLineItems.push(items[i])
         }
@@ -70,19 +69,17 @@ export default function HistoryPage() {
 
 
     return <Container size="responsive" className={classes.mainContainer} my="md">
-        <ScrollArea.Autosize onScrollPositionChange={({ y }) => setScrolled(y !== 0)} className={classes.scroll}>
-            <Table>
-                <Table.Thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
-                    <Table.Tr>
-                        <Table.Th>Payment Date</Table.Th>
-                        <Table.Th>Item</Table.Th>
-                        <Table.Th>Amount</Table.Th>
-                    </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>{rows}</Table.Tbody>
-            </Table>
-        </ScrollArea.Autosize>
-        {initLoading ? <Center><Loader m={10}/></Center> : null}
+        <Table>
+            <Table.Thead className={cx(classes.header)}>
+                <Table.Tr>
+                    <Table.Th>Payment Date</Table.Th>
+                    <Table.Th>Item</Table.Th>
+                    <Table.Th>Amount</Table.Th>
+                </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>{rows}</Table.Tbody>
+        </Table>
+        {initLoading ? <Center><Loader m={10} /></Center> : null}
         <Button onClick={nextPage} disabled={next_page == null} loading={loading} className={classes.load}>Load 10 more</Button>
     </Container>
 }

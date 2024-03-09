@@ -18,8 +18,8 @@ export default function GalleryPage() {
         getDoc(docRef).then((docSnap) => {
             if (docSnap.exists()) {
                 const data = docSnap.data();
-                const names = JSON.parse(data.imageNames)
-                const videos = JSON.parse(data.videoNames)
+                const names = data.imageNames
+                const videos = data.videoNames
 
                 const storage = getStorage();
                 var imgPromises = []

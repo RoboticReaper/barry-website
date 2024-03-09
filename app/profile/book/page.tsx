@@ -8,6 +8,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDisclosure } from '@mantine/hooks';
+import { db } from "@/app/fb";
+import { getDoc, doc } from "firebase/firestore";
 
 const stripePromise = loadStripe(
     // @ts-ignore
@@ -21,8 +23,9 @@ export default function BookPage() {
     const [status, setStatus] = useState("unknown")
     const [opened, { open, close }] = useDisclosure(false);
     const [loading, setLoading] = useState(false);
+    const [availabilities, setAvailabilities] = useState()
 
-    function tennisCheckout(price_id:string) {
+    function tennisCheckout(price_id) {
         setLoading(true);
         createTennisCheckout({ origin: window.location.origin + window.location.pathname, price_id: price_id}).then((result) => {
             // @ts-ignore
@@ -50,6 +53,13 @@ export default function BookPage() {
             setStatus('canceled.')
             open();
         }
+
+        getDoc(doc(db, "public", "bookingAvailabilities")).then((docSnap)=>{
+            if(docSnap.exists()){
+                setAvailabilities(docSnap.data());
+                console.log(docSnap.data())
+            }
+        })
     }, []);
 
     return <Container size="responsive" className={classes.mainContainer} my="md">

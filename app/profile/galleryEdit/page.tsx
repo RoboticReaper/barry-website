@@ -25,7 +25,7 @@ export default function GalleryEditPage() {
         const docRef = doc(db, "public", "gallery");
         getDoc(docRef).then((docSnap) => {
             if (docSnap.exists()) {
-                const names = JSON.parse(docSnap.data().imageNames)
+                const names = docSnap.data().imageNames
 
                 const storage = getStorage();
                 var promises = []
@@ -46,7 +46,7 @@ export default function GalleryEditPage() {
         for (var i = 0; i < s.length; i++) {
             names.push(s[i].imageNames)
         }
-        updateDoc(doc(db, "public", "gallery"), { imageNames: JSON.stringify(names) }).then(() => {
+        updateDoc(doc(db, "public", "gallery"), { imageNames: names }).then(() => {
             notifications.show({
                 color: "green",
                 title: "Saved",
@@ -67,7 +67,7 @@ export default function GalleryEditPage() {
             })
 
 
-            updateDoc(doc(db, "public", "gallery"), { imageNames: JSON.stringify(tempName) }).then(() => {
+            updateDoc(doc(db, "public", "gallery"), { imageNames: tempName }).then(() => {
                 setimageNames(tempName)
                 var tempLink = imageLinks.filter((val) => {
                     return val !== state[index].imageLinks
@@ -101,7 +101,7 @@ export default function GalleryEditPage() {
                     return;
                 }
                 updateDoc(doc(db, "public", "gallery"), {
-                    imageNames: JSON.stringify([...imageNames, file.name])
+                    imageNames: [...imageNames, file.name]
                 })
                 setimageLinks([...imageLinks, url])
                 setimageNames([...imageNames, file.name])

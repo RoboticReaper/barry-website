@@ -77,19 +77,19 @@ export function SideNavbar() {
                 className={classes.link}
                 data-active={active === "/profile/galleryEdit" || undefined}
                 href='/profile/galleryEdit'
-                key='Edit Gallery Photos'
+                key='Edit Photos'
             >
                 <IconPhotoEdit className={classes.linkIcon} stroke={1.5} />
-                <span className={classes.shorten}>Edit Gallery Photos</span>
+                <span className={classes.shorten}>Edit Photos</span>
             </Link>
             <Link
                 className={classes.link}
                 data-active={active === "/profile/galleryEditVideos" || undefined}
                 href='/profile/galleryEditVideos'
-                key='Edit Gallery Videos'
+                key='Edit Videos'
             >
                 <IconVideo className={classes.linkIcon} stroke={1.5} />
-                <span className={classes.shorten}>Edit Gallery Videos</span>
+                <span className={classes.shorten}>Edit Videos</span>
             </Link>
         </div>
     }
