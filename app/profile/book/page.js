@@ -102,7 +102,7 @@ export default function BookPage() {
         if (query.get('canceled')) {
             // get rid of search params
             router.replace(window.location.origin + window.location.pathname)
-            setStatus('canceled. You can still pay by clicking the back button. After 30 min, the link will expire and the time slot will be available again.')
+            setStatus('canceled. You can still pay by clicking the back button. After 30 min, the link will expire and the time slot will be publicly available again.')
             open();
         }
 
