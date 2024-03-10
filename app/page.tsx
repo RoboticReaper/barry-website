@@ -5,7 +5,6 @@ import { HeroImageBackground } from '@/components/HeroImageBackground/HeroImageB
 import { FeaturesSection } from '@/components/FeaturesSection/FeaturesSection';
 import { FAQ } from '@/components/FAQ/FAQ';
 import { Footer } from '@/components/Footer/Footer';
-import { ScrollArea } from '@mantine/core';
 
 export default function HomePage() {
   return (
