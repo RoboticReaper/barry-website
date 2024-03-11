@@ -95,7 +95,7 @@ export default function BookPage() {
         if (query.get('success')) {
             // get rid of search params
             router.replace(window.location.origin + window.location.pathname)
-            setStatus("success!")
+            setStatus("success! You will see your booked lessons on \"Home\" tab of your profile.")
             open();
         }
 
