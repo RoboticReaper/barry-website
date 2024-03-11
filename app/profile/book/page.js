@@ -55,7 +55,7 @@ export default function BookPage() {
         createTennisCheckout({
             origin: window.location.origin + window.location.pathname,
             price_id: price_id,
-            day: selectedDate.getTime() + 1000,
+            day: selectedDate.getTime() + 2000,
             time: getSelectedDateSlots(availabilitiesKey, selectedDate, availabilities)[selectedRow]
         }).then((result) => {
             const url = result.data.checkoutURL;
