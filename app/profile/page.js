@@ -17,7 +17,7 @@ const listBookedSlots = httpsCallable(functions, 'listBookedSlots');
 
 export default function ProfilePage() {
     const [user, changeUser] = useState(initUser);
-    const [bookedSlots, setBookedSlots] = useState([])
+    const [bookedSlots, setBookedSlots] = useState()
     const router = useRouter();
 
     useEffect(() => {
@@ -41,6 +41,30 @@ export default function ProfilePage() {
 
 
     }, [])
+
+    function Slots(){
+        if(bookedSlots === undefined){
+            return <Table.Tr><Table.Td><Loader /></Table.Td></Table.Tr>
+        }
+
+        if(bookedSlots.length === 0){
+            return <Table.Tr><Table.Td>No lesson booked</Table.Td></Table.Tr>
+        }
+
+        return bookedSlots.map((element) => {
+            let d = new Date(element.date)
+            let hourStart = (element.start % 12) || 12;
+            let ampmStart = element.start >= 12 ? " pm" : " am";
+            let hourEnd = (element.end % 12) || 12;
+            let ampmEnd = element.end >= 12 ? " pm" : " am";
+
+            return <Table.Tr key={element.date}>
+                <Table.Td>{d.toLocaleDateString()}</Table.Td>
+                <Table.Td>{hourStart + ampmStart}</Table.Td>
+                <Table.Td>{hourEnd + ampmEnd}</Table.Td>
+            </Table.Tr>
+        })
+    }
 
 
 
@@ -88,19 +112,7 @@ export default function ProfilePage() {
                                 <Table.Th>End time</Table.Th>
                             </Table.Tr>
                         </Table.Thead>
-                        <Table.Tbody>{bookedSlots.length === 0 ? <Table.Tr><Table.Td>No lesson booked</Table.Td></Table.Tr> : bookedSlots.map((element) => {
-                            let d = new Date(element.date)
-                            let hourStart = (element.start % 12) || 12;
-                            let ampmStart = element.start >= 12 ? " pm" : " am";
-                            let hourEnd = (element.end % 12) || 12;
-                            let ampmEnd = element.end >= 12 ? " pm" : " am";
-
-                            return <Table.Tr key={element.date}>
-                                <Table.Td>{d.toLocaleDateString()}</Table.Td>
-                                <Table.Td>{hourStart + ampmStart}</Table.Td>
-                                <Table.Td>{hourEnd + ampmEnd}</Table.Td>
-                            </Table.Tr>
-                        })}</Table.Tbody>
+                        <Table.Tbody><Slots /></Table.Tbody>
                     </Table>
                 </Grid.Col>
             </Grid>
