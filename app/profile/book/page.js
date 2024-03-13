@@ -62,9 +62,11 @@ export default function BookPage() {
             router.push(url);
         }).catch((err) => {
             console.log(err)
-            if(err === "FirebaseError: This time slot is already reserved"){
-                alert("This time slot was just reserved by someone else")
-            }
+            notifications.show({
+                color: "red",
+                title: "Error",
+                message: err.message,
+            })
             setLoading(false);
         })
     }
