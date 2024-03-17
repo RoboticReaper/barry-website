@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 'use client'
 import classes from "./Message.module.css";
 import { UnstyledButton, Center, Container, Loader, ScrollArea, Indicator, TextInput, ActionIcon, Group } from '@mantine/core';
@@ -7,9 +7,8 @@ import { useEffect, useState, useRef } from "react";
 import { db } from '@/app/fb';
 import { user as initUser } from '@/app/fb';
 import { IconSend } from "@tabler/icons-react";
+import {setUnsub, unsub} from '@/app/unsub.js';
 
-
-export let unsub;
 
 export default function Message() {
     const [isAdmin, setIsAdmin] = useState(false);
@@ -94,7 +93,7 @@ export default function Message() {
             return;
         }
 
-        unsub = onSnapshot(doc(db, "messages", activeID), (d) => {
+        let pendingUnsub = onSnapshot(doc(db, "messages", activeID), (d) => {
             let data = d.data();
 
             if (data.messages === undefined) {
@@ -112,6 +111,7 @@ export default function Message() {
                 })
             }
         })
+        setUnsub(pendingUnsub)
     }, [activeID])
 
     useEffect(() => {

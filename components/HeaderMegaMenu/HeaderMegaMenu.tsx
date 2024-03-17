@@ -41,7 +41,7 @@ import { useEffect, useState } from 'react';
 import { User } from 'firebase/auth';
 import { MantineProvider } from '@mantine/core';
 import { Notifications, notifications } from '@mantine/notifications';
-import {unsub} from '@/app/profile/message/page.js'
+import { unsub } from '@/app/unsub';
 
 const mockdata = [
   {
