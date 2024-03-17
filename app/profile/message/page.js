@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import classes from "./Message.module.css";
 import { UnstyledButton, Center, Container, Loader, ScrollArea, Indicator, TextInput, ActionIcon, Group } from '@mantine/core';
@@ -8,9 +9,7 @@ import { user as initUser } from '@/app/fb';
 import { IconSend } from "@tabler/icons-react";
 
 
-let unsub;
-
-export {unsub};
+export let unsub;
 
 export default function Message() {
     const [isAdmin, setIsAdmin] = useState(false);
