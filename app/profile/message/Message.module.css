@@ -32,7 +32,7 @@
 }
 
 .chatBox {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 140px);
     flex: 3;
 }
 
