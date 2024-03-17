@@ -8,7 +8,9 @@ import { user as initUser } from '@/app/fb';
 import { IconSend } from "@tabler/icons-react";
 
 
-export let unsub;
+let unsub;
+
+export {unsub};
 
 export default function Message() {
     const [isAdmin, setIsAdmin] = useState(false);
