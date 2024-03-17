@@ -1,6 +1,5 @@
 .navbar {
-  height: 100%;
-  /* width: rem(300px); */
+  height: calc(100vh - 60px);
   width: 20%;
   padding: var(--mantine-spacing-md);
   display: flex;
@@ -15,7 +14,7 @@
   }
 
   @media (max-width: $mantine-breakpoint-sm) {
-    width: rem(82px);
+    width: rem(70px);
     padding: var(--mantine-spacing-xs);
   }
 
@@ -47,6 +46,8 @@
     display: none;
   }
 }
+
+
 
 .link {
   display: flex;

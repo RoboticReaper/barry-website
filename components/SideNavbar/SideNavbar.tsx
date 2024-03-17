@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { Group, Code, UnstyledButton, Text, Divider, Center } from '@mantine/core';
+import { Group, Code, UnstyledButton, Text, Divider, Center, ScrollArea } from '@mantine/core';
 import {
     IconBookmarks,
     IconUser,
@@ -96,7 +96,7 @@ export function SideNavbar() {
 
 
     return (
-        <nav className={classes.navbar}>
+        <ScrollArea className={classes.navbar}>
             <div className={classes.navbarMain}>
                 <Link
                     className={classes.link}
@@ -152,6 +152,6 @@ export function SideNavbar() {
                     <span className={classes.shorten}>Logout</span>
                 </UnstyledButton>
             </div>
-        </nav>
+        </ScrollArea>
     );
 }

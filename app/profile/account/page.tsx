@@ -107,6 +107,7 @@ export default function AccountPage() {
                                 <TextInput
                                     radius="sm"
                                     label="Name"
+                                    disabled
                                     value={name}
                                     onChange={(e) => { setName(e.currentTarget.value) }}
                                     withAsterisk
@@ -131,6 +132,7 @@ export default function AccountPage() {
                                     value={phone}
                                     onChange={setPhone}
                                     withAsterisk
+                                    disabled
                                     placeholder="Phone number"
                                 />
                             </Grid.Col>

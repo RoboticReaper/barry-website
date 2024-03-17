@@ -41,6 +41,7 @@ import { useEffect, useState } from 'react';
 import { User } from 'firebase/auth';
 import { MantineProvider } from '@mantine/core';
 import { Notifications, notifications } from '@mantine/notifications';
+import {unsub} from '@/app/profile/message/page.js'
 
 const mockdata = [
   {
@@ -97,6 +98,10 @@ export function HeaderMegaMenu() {
 
   useEffect(()=>{
     closeDrawer();
+
+    if(pathname!=="/profile/message" && unsub !== undefined){
+      unsub()
+    }
   }, [pathname])
 
   function ProfileControl() {
