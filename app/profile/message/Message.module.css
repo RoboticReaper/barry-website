@@ -3,14 +3,14 @@
 }
 
 .scrollArea {
-    height: calc(100vh - 250px);
+    height: calc(100vh - 100px);
     flex: 1;
     min-width: rem(85px);
     border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 }
 
 .messageWrapper{
-    height: calc(100vh - 250px);
+    height: calc(100vh - 175px);
     padding: var(--mantine-spacing-sm);
     min-height: rem(100px);
 }
