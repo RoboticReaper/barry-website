@@ -3,11 +3,11 @@
 import classes from "./Message.module.css";
 import { UnstyledButton, Center, Container, Loader, ScrollArea, Indicator, TextInput, ActionIcon, Group } from '@mantine/core';
 import { doc, updateDoc, getDoc, setDoc, collection, query, limit, orderBy, getDocs, onSnapshot, arrayUnion, Timestamp } from "firebase/firestore";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { db } from '@/app/fb';
 import { user as initUser } from '@/app/fb';
 import { IconSend } from "@tabler/icons-react";
-import {setUnsub, unsub} from '@/app/unsub.js';
+import { setUnsub, unsub } from '@/app/unsub.js';
 
 
 export default function Message() {
@@ -21,8 +21,6 @@ export default function Message() {
     const [messages, setMessages] = useState();
 
     const viewport = useRef(null);
-
-
 
     function setNewUser(use) {
         getDoc(doc(db, "users", use.uid)).then((docSnap) => {
@@ -82,7 +80,7 @@ export default function Message() {
 
         })
 
-        
+
     }, [])
 
     useEffect(() => {
@@ -101,7 +99,7 @@ export default function Message() {
             }
             setMessages(data.messages)
 
-            if(isAdmin){
+            if (isAdmin) {
                 updateDoc(doc(db, "messages", activeID), {
                     adminUnread: false,
                 })
@@ -119,7 +117,9 @@ export default function Message() {
             viewport.current.scrollTo({ top: viewport.current.scrollHeight, behavior: "auto" });
         }
 
-    }, [ChatBox]);
+        // using sendMessage so that when the component is updated, it auto scrolls down.
+        // actually any function can work as long as it's inside Message()
+    }, [sendMessage]);
 
     function sendMessage() {
         let msg = document.getElementById("messageInput").value.trim()
@@ -158,68 +158,99 @@ export default function Message() {
         }
     }
 
-    function ChatBar() {
-        return <ScrollArea className={classes.scrollArea}>
-            <div className={classes.navbar}>
-                <div className={classes.navbarMain}>
-                    {channelNames === undefined ? <Loader /> : channelNames.map((name, index) => {
-                        return <UnstyledButton
-                            className={classes.link}
-                            data-active={name === activeName || undefined}
-                            onClick={() => { setActiveID(channelIDs[index]); setActiveName(channelNames[index]) }}
-                            key={index}
-                        >
-                            <Indicator size={10} withBorder position="top-start" disabled={!unread[index]}>{name}</Indicator>
-                        </UnstyledButton>
-                    })}
+    return user ? <div className={classes.mainContainer}>{
+        [1].map(() => {
+            if (!isAdmin) {
 
+                // normal user. chatbox only
+                if (activeID === undefined) {
+                    return null;
+                }
+
+                const messageArea = messages === undefined ? <Loader /> : <div className={classes.messageWrapper}>{messages.map((msg, index) => {
+                    let role;
+                    let date = msg.sent.toDate()
+                    let time = date.toLocaleDateString() + " " + date.toLocaleTimeString()
+
+                    if (msg.uid !== user.uid) {
+                        role = activeName;
+                    } else {
+                        role = "You";
+                    }
+
+                    return <div key={index} style={{ padding: "10px" }}>{role + ", " + time + ": " + msg.message}<br /></div>
+                })}</div>
+
+
+
+                return <div className={classes.chatBox} key="test">
+                    <div className={classes.chatTitle}>{activeName}</div>
+                    <ScrollArea scrollbars='y' className={classes.chatArea} viewportRef={viewport}>{messageArea}</ScrollArea>
+
+                    <form onSubmit={(e) => { e.preventDefault(); sendMessage() }} className={classes.chatInput}>
+                        <TextInput style={{ flex: 1 }} id="messageInput" size="md" placeholder="Type your message here" />
+                        <ActionIcon size="input-md" type="submit">
+                            <IconSend />
+                        </ActionIcon>
+                    </form>
                 </div>
-            </div>
-
-        </ScrollArea>
-    }
-
-    function ChatBox() {
-        if (activeID === undefined) {
-            return null;
-        }
-
-        const messageArea = messages === undefined ? <Loader /> : <div className={classes.messageWrapper}>{messages.map((msg, index) => {
-            let role;
-            let date = msg.sent.toDate()
-            let time = date.toLocaleDateString() + " " + date.toLocaleTimeString()
-
-            if (msg.uid !== user.uid) {
-                role = activeName;
             } else {
-                role = "You";
+                // admin. chatbar and chatbox
+                return <div style={{ display: "flex", flexDirection: "row", flexWrap: "nowrap" }}>
+                    <ScrollArea className={classes.scrollArea}>
+                        <div className={classes.navbar}>
+                            <div className={classes.navbarMain}>
+                                {channelNames === undefined ? <Loader /> : channelNames.map((name, index) => {
+                                    return <UnstyledButton
+                                        className={classes.link}
+                                        data-active={name === activeName || undefined}
+                                        onClick={() => { setActiveID(channelIDs[index]); setActiveName(channelNames[index]) }}
+                                        key={index}
+                                    >
+                                        <Indicator size={10} withBorder position="top-start" disabled={!unread[index]}>{name}</Indicator>
+                                    </UnstyledButton>
+                                })}
+
+                            </div>
+                        </div>
+
+                    </ScrollArea>
+                    {[1].map(()=>{
+                        // chatbox
+                        if (activeID === undefined) {
+                            return null;
+                        }
+                
+                        const messageArea = messages === undefined ? <Loader /> : <div className={classes.messageWrapper}>{messages.map((msg, index) => {
+                            let role;
+                            let date = msg.sent.toDate()
+                            let time = date.toLocaleDateString() + " " + date.toLocaleTimeString()
+                
+                            if (msg.uid !== user.uid) {
+                                role = activeName;
+                            } else {
+                                role = "You";
+                            }
+                
+                            return <div key={index} style={{ padding: "10px" }}>{role + ", " + time + ": " + msg.message}<br /></div>
+                        })}</div>
+                
+                
+                
+                        return <div className={classes.chatBox} key="test">
+                            <div className={classes.chatTitle}>{activeName}</div>
+                            <ScrollArea scrollbars='y' className={classes.chatArea} viewportRef={viewport}>{messageArea}</ScrollArea>
+                
+                            <form onSubmit={(e) => { e.preventDefault(); sendMessage() }} className={classes.chatInput}>
+                                <TextInput style={{ flex: 1 }} id="messageInput" size="md" placeholder="Type your message here" />
+                                <ActionIcon size="input-md" type="submit">
+                                    <IconSend />
+                                </ActionIcon>
+                            </form>
+                        </div>
+                    })}
+                </div>
             }
-
-            return <div key={index} style={{ padding: "10px" }}>{role + ", " + time + ": " + msg.message}<br /></div>
-        })}</div>
-
-
-
-        return <div className={classes.chatBox} key="test">
-            <div className={classes.chatTitle}>{activeName}</div>
-            <ScrollArea scrollbars='y' className={classes.chatArea} viewportRef={viewport}>{messageArea}</ScrollArea>
-
-            <form onSubmit={(e) => { e.preventDefault(); sendMessage() }} className={classes.chatInput}>
-                <TextInput autoFocus style={{ flex: 1 }} id="messageInput" size="md" placeholder="Type your message here" />
-                <ActionIcon size="input-md" type="submit">
-                    <IconSend />
-                </ActionIcon>
-            </form>
-        </div>
-    }
-
-    function ChatInterface() {
-        return !isAdmin ? <ChatBox /> : <div style={{ display: "flex", flexDirection: "row", flexWrap: "nowrap" }}>
-            <ChatBar />
-            <ChatBox />
-        </div>
-    }
-
-
-    return user ? <div className={classes.mainContainer}><ChatInterface /></div> : <div className={classes.mainContainer}><Center><Loader /></Center></div>
+        })
+    }</div> : <div className={classes.mainContainer}><Center><Loader /></Center></div>
 }
