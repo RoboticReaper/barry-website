@@ -13,7 +13,7 @@ import { AspectRatio, Image, rem } from '@mantine/core';
 import { updateEmail, updateProfile } from 'firebase/auth';
 import { User } from 'firebase/auth';
 import { db } from '@/app/fb';
-import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 import { notifications } from '@mantine/notifications';
 
 export default function AccountPage() {
@@ -22,6 +22,7 @@ export default function AccountPage() {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState<string | number>("");
     const [ready, setReady] = useState(false);
+    const [profileEditable, setProfileEditable] = useState(false);
     const router = useRouter();
 
 
@@ -36,7 +37,16 @@ export default function AccountPage() {
 
         if (docSnap.exists()) {
             setPhone(docSnap.data().phoneNumber);
+            
         }
+
+        onSnapshot(doc(db, "users", use.uid), (snapshot)=>{
+            if(snapshot.data()?.editable || snapshot.data()?.admin){
+                setProfileEditable(true);
+            } else {
+                setProfileEditable(false);
+            }
+        })
 
         setReady(true);
     }
@@ -56,21 +66,22 @@ export default function AccountPage() {
                 });
             })
         }).catch((e) => {
-            setDoc(doc(db, "users", user.uid), {
-                phoneNumber: phone,
-                displayName: name,
-                email: email,
-            }).then(() => {
-                updateProfile(user, {
-                    displayName: name,
-                }).then(() => {
-                    notifications.show({
-                        color: "green",
-                        title: "Saved",
-                        message: "All data has been saved",
-                    });
-                })
-            })
+            console.log(e)
+            // setDoc(doc(db, "users", user.uid), {
+            //     phoneNumber: phone,
+            //     displayName: name,
+            //     email: email,
+            // }).then(() => {
+            //     updateProfile(user, {
+            //         displayName: name,
+            //     }).then(() => {
+            //         notifications.show({
+            //             color: "green",
+            //             title: "Saved",
+            //             message: "All data has been saved",
+            //         });
+            //     })
+            // })
         })
     }
 
@@ -93,7 +104,6 @@ export default function AccountPage() {
 
         })
 
-
     }, [])
 
     return <Container size="responsive" className={classes.mainContainer} my="md">
@@ -107,7 +117,7 @@ export default function AccountPage() {
                                 <TextInput
                                     radius="sm"
                                     label="Name"
-                                    disabled
+                                    disabled={!profileEditable}
                                     value={name}
                                     onChange={(e) => { setName(e.currentTarget.value) }}
                                     withAsterisk
@@ -119,7 +129,6 @@ export default function AccountPage() {
                                     radius="sm"
                                     label="Email"
                                     value={email}
-                                    disabled
                                     readOnly
                                     withAsterisk
                                     placeholder="Your email"
@@ -132,7 +141,7 @@ export default function AccountPage() {
                                     value={phone}
                                     onChange={setPhone}
                                     withAsterisk
-                                    disabled
+                                    disabled={!profileEditable}
                                     placeholder="Phone number"
                                 />
                             </Grid.Col>
