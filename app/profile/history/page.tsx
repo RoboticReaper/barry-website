@@ -31,6 +31,8 @@ export default function HistoryPage() {
         }
         listPaymentIntents().then((result) => {
             processIntents(result)
+        }).catch((err)=>{
+            setInitLoading(false);
         })
     }, []);
 
