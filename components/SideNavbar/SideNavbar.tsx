@@ -113,7 +113,8 @@ export function SideNavbar() {
             >
                 <IconVideo className={classes.linkIcon} stroke={1.5} />
                 <span className={classes.shorten}>Edit Videos</span>
-            </Link><Link
+            </Link>
+            <Link
                 className={classes.link}
                 data-active={active === "/profile/bookingSettings" || undefined}
                 href='/profile/bookingSettings'
@@ -121,6 +122,15 @@ export function SideNavbar() {
             >
                 <IconSettings className={classes.linkIcon} stroke={1.5} />
                 <span className={classes.shorten}>Booking Settings</span>
+            </Link>
+            <Link
+                className={classes.link}
+                data-active={active === "/profile/adminBookings" || undefined}
+                href='/profile/adminBookings'
+                key='adminBookings'
+            >
+                <IconBookmarks className={classes.linkIcon} stroke={1.5} />
+                <span className={classes.shorten}>Admin Bookings</span>
             </Link>
         </div>
     }

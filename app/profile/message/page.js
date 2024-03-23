@@ -1,7 +1,7 @@
 
 'use client'
 import classes from "./Message.module.css";
-import { UnstyledButton, Center, Container, Loader, ScrollArea, Indicator, TextInput, ActionIcon, Group, Button } from '@mantine/core';
+import { UnstyledButton, Center, Container, Loader, ScrollArea, Indicator, TextInput, ActionIcon, Group, Button, Text } from '@mantine/core';
 import { doc, updateDoc, getDoc, setDoc, collection, query, limit, orderBy, getDocs, onSnapshot, arrayUnion, Timestamp, startAfter } from "firebase/firestore";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { db } from '@/app/fb';
@@ -66,7 +66,7 @@ export default function Message() {
             } else {
                 // chat in their own channel only
                 setActiveID(use.uid)
-                setActiveName("Barry")
+                setActiveName("Barry Ndinya")
             }
         })
     }
@@ -270,7 +270,7 @@ export default function Message() {
 
 
                         return <div className={classes.chatBox} key="test">
-                            <div className={classes.chatTitle}>{activeName}</div>
+                            <div className={classes.chatTitle}>{activeName} <Text c="dimmed" size="xs">UID: {activeID}</Text></div>
                             <ScrollArea scrollbars='y' className={classes.chatArea} viewportRef={viewport}>{messageArea}</ScrollArea>
 
                             <form onSubmit={(e) => { e.preventDefault(); sendMessage() }} className={classes.chatInput}>

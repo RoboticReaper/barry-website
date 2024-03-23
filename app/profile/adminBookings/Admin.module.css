@@ -1,0 +1,43 @@
+.mainContainer {
+    padding: rem(10px);
+    margin: rem(10px);
+    width: 100%;
+}
+
+.right {
+    @media (min-width: $mantine-breakpoint-sm) {
+        text-align: right;
+    }
+}
+
+.paper {
+    @media (max-width: $mantine-breakpoint-sm) {
+        padding: rem(10px);
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        padding: rem(20px);
+    }
+
+    margin-bottom: rem(20px);
+
+}
+
+.photo {
+    
+    display: flex;
+    width: rem(100px);
+    height: rem(100px);
+    
+    @media (max-width: $mantine-breakpoint-sm) {
+        width: rem(60px);
+        height: rem(60px);
+    }
+}
+
+.userInfo {
+    margin-left: rem(10px);
+    @media (max-width: $mantine-breakpoint-sm) {
+        margin-left: rem(5px);
+    }
+}

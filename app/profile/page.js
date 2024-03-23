@@ -51,14 +51,27 @@ export default function ProfilePage() {
             return <Table.Tr><Table.Td>No lesson booked</Table.Td></Table.Tr>
         }
 
-        return bookedSlots.map((element) => {
+        bookedSlots.sort((a, b)=>{
+            let dateA = new Date(a.date)
+            dateA.setHours(a.start)
+
+            let dateB = new Date(b.date)
+            dateB.setHours(b.start)
+
+            let timeA = dateA.getTime();
+            let timeB = dateB.getTime();
+
+            return timeA === timeB ? 0 : timeA - timeB
+        })
+
+        return bookedSlots.map((element, index) => {
             let d = new Date(element.date)
             let hourStart = (element.start % 12) || 12;
             let ampmStart = element.start >= 12 ? " pm" : " am";
             let hourEnd = (element.end % 12) || 12;
             let ampmEnd = element.end >= 12 ? " pm" : " am";
 
-            return <Table.Tr key={element.date}>
+            return <Table.Tr key={index}>
                 <Table.Td>{d.toLocaleDateString()}</Table.Td>
                 <Table.Td>{hourStart + ampmStart}</Table.Td>
                 <Table.Td>{hourEnd + ampmEnd}</Table.Td>
