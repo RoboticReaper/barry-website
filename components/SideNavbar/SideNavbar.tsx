@@ -15,7 +15,7 @@ import Link from 'next/link';
 import { getAuth, signOut } from "firebase/auth";
 import classes from './SideNavbar.module.css';
 import { db } from '@/app/fb';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { usePathname } from 'next/navigation';
 import { user as initUser } from '@/app/fb';
 import { useRouter } from 'next/navigation';
@@ -71,10 +71,12 @@ export function SideNavbar() {
                     }
                 })
             } else {
-                getDoc(doc(db, "messages", use.uid)).then((docu) => {
+                onSnapshot(doc(db, "messages", use.uid), (docu) => {
                     if (docu.exists()) {
                         if (docu.data().userUnread) {
                             setHasUnread(true);
+                        } else {
+                            setHasUnread(false);
                         }
                     }
                 })
