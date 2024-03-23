@@ -17,7 +17,8 @@ import {
   ScrollArea,
   rem,
   useMantineTheme,
-  Image
+  Image,
+  Indicator
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 import classes2 from './ProfileControl.module.css';
@@ -36,12 +37,13 @@ import {
 } from '@tabler/icons-react';
 import classes from './HeaderMegaMenu.module.css';
 import '@/app/fb'
-import { user as initUser } from '@/app/fb';
+import { db, user as initUser } from '@/app/fb';
 import { useEffect, useState } from 'react';
 import { User } from 'firebase/auth';
 import { MantineProvider } from '@mantine/core';
 import { Notifications, notifications } from '@mantine/notifications';
 import { unsub } from '@/app/unsub';
+import { doc, getDoc } from 'firebase/firestore';
 
 const mockdata = [
   {
@@ -82,6 +84,7 @@ export function HeaderMegaMenu() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const [user, changeUser] = useState(initUser);
+  const [hasUnread, setHasUnread] = useState(false)
   const theme = useMantineTheme();
   const router = useRouter();
 
@@ -91,28 +94,46 @@ export function HeaderMegaMenu() {
       // @ts-ignore
       var newUser: User = u.detail.newUser;
       changeUser(newUser);
+
+
     })
 
 
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (user) {
+      getDoc(doc(db, "messages", user.uid)).then((docu) => {
+        if (docu.exists()) {
+          if (docu.data().userUnread) {
+            setHasUnread(true);
+          }
+        }
+      })
+    }
+  }, [user])
+
+  useEffect(() => {
     closeDrawer();
 
-    if(pathname!=="/profile/message" && unsub !== undefined){
+    if (pathname !== "/profile/message" && unsub !== undefined) {
       unsub()
     }
   }, [pathname])
 
   function ProfileControl() {
+
     return (
       <UnstyledButton className={classes2.user} onClick={() => { router.push("/profile") }}>
+
         <Group>
 
           <div style={{ flex: 1 }}>
-            <Text size="sm" fw={500}>
-              {user.displayName}
-            </Text>
+            <Indicator position="top-end" size={20} label="New message" disabled={!hasUnread}>
+              <Text size="sm" fw={500}>
+                {user.displayName}
+              </Text>
+            </Indicator>
 
             <Text c="dimmed" size="xs">
               {user.email}
@@ -121,6 +142,7 @@ export function HeaderMegaMenu() {
 
           <IconChevronRight style={{ width: rem(14), height: rem(14) }} stroke={1.5} />
         </Group>
+
       </UnstyledButton>
     );
   }
@@ -131,9 +153,11 @@ export function HeaderMegaMenu() {
         <Group>
 
           <div style={{ flex: 1 }}>
-            <Text size="sm" fw={500}>
-              {user.displayName}
-            </Text>
+            <Indicator position="top-end" size={20} label="New message" disabled={!hasUnread}>
+              <Text size="sm" fw={500}>
+                {user.displayName}
+              </Text>
+            </Indicator>
 
             <Text c="dimmed" size="xs">
               {user.email}
@@ -174,8 +198,8 @@ export function HeaderMegaMenu() {
       </MantineProvider>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
-          <Link href="/" style={{height: "100%"}}>
-            <Image src="/logoFull.jpg" fit="contain" className={classes.logo}/>
+          <Link href="/" style={{ height: "100%" }}>
+            <Image src="/logoFull.jpg" fit="contain" className={classes.logo} />
           </Link>
           <Group h="100%" gap={0} visibleFrom="sm">
             <Link href="/" className={classes.link}>
@@ -241,7 +265,9 @@ export function HeaderMegaMenu() {
           </Group> : <ProfileControl />}
 
 
-          <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
+          <Indicator position="top-start" size={16} label="New message" disabled={!hasUnread} hiddenFrom="sm">
+            <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
+          </Indicator>
         </Group>
       </header>
 

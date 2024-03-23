@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { Group, Code, UnstyledButton, Text, Divider, Center, ScrollArea } from '@mantine/core';
+import { Group, Code, UnstyledButton, Text, Divider, Center, ScrollArea, Indicator } from '@mantine/core';
 import {
     IconBookmarks,
     IconUser,
@@ -26,6 +26,7 @@ export function SideNavbar() {
     const pathname = usePathname();
     const [active, setActive] = useState(pathname);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [hasUnread, setHasUnread] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -61,9 +62,28 @@ export function SideNavbar() {
         if (docSnap.exists()) {
             if (docSnap.data().admin) {
                 setIsAdmin(true);
+
+                getDoc(doc(db, "messages", use.uid)).then((docu) => {
+                    if (docu.exists()) {
+                        if (docu.data().adminUnread) {
+                            setHasUnread(true);
+                        }
+                    }
+                })
+            } else {
+                getDoc(doc(db, "messages", use.uid)).then((docu) => {
+                    if (docu.exists()) {
+                        if (docu.data().userUnread) {
+                            setHasUnread(true);
+                        }
+                    }
+                })
             }
         }
+
     }
+
+
 
     function AdminComponents() {
         return <div>
@@ -122,7 +142,9 @@ export function SideNavbar() {
                     href='/profile/message'
                     key='Message'
                 >
-                    <IconMessage className={classes.linkIcon} stroke={1.5} />
+                    <Indicator disabled={!hasUnread} inline className={classes.linkIcon}>
+                        <IconMessage className={classes.linkIcon} stroke={1.5} />
+                    </Indicator>
                     <span className={classes.shorten}>Message</span>
                 </Link>
                 <Link

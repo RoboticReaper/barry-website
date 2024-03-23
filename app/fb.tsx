@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getFunctions } from 'firebase/functions';
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { User } from "firebase/auth";
+import { getMessaging, getToken } from 'firebase/messaging';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
@@ -28,6 +29,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const functions = getFunctions(app);
 
+// export const messaging = getMessaging(app)
+// getToken(messaging, {vapidKey: "BPQfqW2WyqX3PRhZh-i0Ssfim7SIgE0b4_Q40H7CVnkBvn_6sCPkLIHdZsdYnYjbnfTKH5JnX7HK1_QGpjOiiVU"}).then((currentToken)=>{
+//   console.log("current token:")
+//   console.log(currentToken)
+// })
 
 const analytics = isSupported().then(yes => yes ? getAnalytics(app) : null);
 
