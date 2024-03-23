@@ -10,6 +10,7 @@ import {
     IconHome,
     IconVideo,
     IconPhotoEdit,
+    IconSettings,
 } from '@tabler/icons-react';
 import Link from 'next/link';
 import { getAuth, signOut } from "firebase/auth";
@@ -112,6 +113,14 @@ export function SideNavbar() {
             >
                 <IconVideo className={classes.linkIcon} stroke={1.5} />
                 <span className={classes.shorten}>Edit Videos</span>
+            </Link><Link
+                className={classes.link}
+                data-active={active === "/profile/bookingSettings" || undefined}
+                href='/profile/bookingSettings'
+                key='Booking Settings'
+            >
+                <IconSettings className={classes.linkIcon} stroke={1.5} />
+                <span className={classes.shorten}>Booking Settings</span>
             </Link>
         </div>
     }
