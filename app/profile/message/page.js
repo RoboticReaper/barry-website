@@ -242,7 +242,7 @@ export default function Message() {
                                         <Indicator size={10} withBorder position="top-start" disabled={!unread[index]}>{name}</Indicator>
                                     </UnstyledButton>
                                 })}
-                                <Center><Button m="md" onClick={sendListSnapshot}>Load more</Button></Center>
+                                <Center><Button m="md" onClick={sendListSnapshot}>More</Button></Center>
                             </div>
                         </div>
 
