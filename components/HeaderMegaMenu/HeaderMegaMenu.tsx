@@ -43,7 +43,7 @@ import { User } from 'firebase/auth';
 import { MantineProvider } from '@mantine/core';
 import { Notifications, notifications } from '@mantine/notifications';
 import { unsub } from '@/app/unsub';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 
 const mockdata = [
   {
@@ -103,10 +103,12 @@ export function HeaderMegaMenu() {
 
   useEffect(() => {
     if (user) {
-      getDoc(doc(db, "messages", user.uid)).then((docu) => {
+      onSnapshot(doc(db, "messages", user.uid), (docu) => {
         if (docu.exists()) {
           if (docu.data().userUnread) {
             setHasUnread(true);
+          } else {
+            setHasUnread(false);
           }
         }
       })
