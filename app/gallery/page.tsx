@@ -4,6 +4,7 @@ import { GalleryHero } from "@/components/GalleryHero/GalleryHero"
 import { Title, Center, Divider, Grid, AspectRatio, Loader } from "@mantine/core"
 import { Footer } from "@/components/Footer/Footer"
 import { useEffect, useState } from "react"
+import classes from './Gallery.module.css'
 import { db } from '@/app/fb';
 import { doc, getDoc } from "firebase/firestore";
 import { HeaderMegaMenu } from "@/components/HeaderMegaMenu/HeaderMegaMenu"
@@ -56,7 +57,7 @@ export default function GalleryPage() {
             {
                 //@ts-ignore
                 imgLinks != undefined ? imgLinks.map((item) => {
-                    return <Grid.Col span={{ base: 12, xs: 12, sm: 6, lg: 4 }} key={item}><AspectRatio mx="auto"><img src={item} /></AspectRatio></Grid.Col>
+                    return <Grid.Col span={{ base: 12, xs: 6, sm: 6, md: 4, lg: 3 }} key={item}><img src={item} className={classes.image}/></Grid.Col>
                 }) : <Loader color='blue' />}
 
         </Grid>
