@@ -56,7 +56,7 @@ export default function GalleryPage() {
             {
                 //@ts-ignore
                 imgLinks != undefined ? imgLinks.map((item) => {
-                    return <Grid.Col span={{ base: 12, xs: 12, sm: 6, lg: 4 }} key={item}><AspectRatio ratio={16 / 9} mx="auto"><img src={item} /></AspectRatio></Grid.Col>
+                    return <Grid.Col span={{ base: 12, xs: 12, sm: 6, lg: 4 }} key={item}><AspectRatio mx="auto"><img src={item} /></AspectRatio></Grid.Col>
                 }) : <Loader color='blue' />}
 
         </Grid>
