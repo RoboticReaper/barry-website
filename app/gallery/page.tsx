@@ -72,13 +72,12 @@ export default function GalleryPage() {
             {
                 //@ts-ignore
                 vidLinks != undefined ? vidLinks.map((item) => {
-                    return <Grid.Col span={{ base: 12, xs: 12, sm: 6, lg: 4 }} key={item}><AspectRatio ratio={16 / 9} mx="auto">
-                        <video controls>
+                    return <Grid.Col span={{ base: 12, xs: 6, sm: 6, md: 4, lg: 3 }} key={item}>
+                        <video controls className={classes.image}>
                             <source src={item} type="video/mp4" />
                             <source src={item} type="video/webm" />
                             <source src={item} type="video/ogg" />
-                        </video>
-                    </AspectRatio></Grid.Col>
+                        </video></Grid.Col>
                 }) : <Loader color='blue' />}
 
         </Grid>
