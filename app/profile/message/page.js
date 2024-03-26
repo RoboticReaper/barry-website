@@ -21,6 +21,8 @@ export default function Message() {
     const [activeID, setActiveID] = useState();
     const [channelNames, setChannelNames] = useState();
     const [messages, setMessages] = useState();
+    const [phones, setPhones] = useState();
+    const [activePhone, setActivePhone] = useState();
 
     const viewport = useRef(null);
 
@@ -36,6 +38,7 @@ export default function Message() {
             let namePromises = []
             let resultUnread = []
             let resultNames = []
+            let resultPhones = []
 
             querySnapshot.forEach((resultDoc) => {
                 resultIDs.push(resultDoc.id)
@@ -48,9 +51,11 @@ export default function Message() {
             Promise.all(namePromises).then((results) => {
                 results.forEach((result) => {
                     resultNames.push(result.data().displayName)
+                    resultPhones.push(result.data().phoneNumber)
                 })
 
                 setChannelNames(resultNames)
+                setPhones(resultPhones)
             })
         })
 
@@ -236,7 +241,7 @@ export default function Message() {
                                     return <UnstyledButton
                                         className={classes.link}
                                         data-active={name === activeName || undefined}
-                                        onClick={() => { setActiveID(channelIDs[index]); setActiveName(channelNames[index]) }}
+                                        onClick={() => { setActiveID(channelIDs[index]); setActiveName(channelNames[index]); setActivePhone(phones[index]) }}
                                         key={index}
                                     >
                                         <Indicator size={10} withBorder position="top-start" disabled={!unread[index]}>{name}</Indicator>
@@ -270,7 +275,7 @@ export default function Message() {
 
 
                         return <div className={classes.chatBox} key="test">
-                            <div className={classes.chatTitle}>{activeName} <Text c="dimmed" size="xs">UID: {activeID}</Text></div>
+                            <div className={classes.chatTitle}>{activeName} (#: {activePhone})<Text c="dimmed" size="xs">UID: {activeID}</Text></div>
                             <ScrollArea scrollbars='y' className={classes.chatArea} viewportRef={viewport}>{messageArea}</ScrollArea>
 
                             <form onSubmit={(e) => { e.preventDefault(); sendMessage() }} className={classes.chatInput}>
