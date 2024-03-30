@@ -70,11 +70,13 @@ export default function ProfilePage() {
             let ampmStart = element.start >= 12 ? " pm" : " am";
             let hourEnd = (element.end % 12) || 12;
             let ampmEnd = element.end >= 12 ? " pm" : " am";
+            let minuteStart = element.startMinute == 0 ? ":00" : ":"+element.startMinute
+            let minuteEnd = element.endMinute == 0 ? ":00" : ":"+element.endMinute
 
             return <Table.Tr key={index}>
                 <Table.Td>{d.toLocaleDateString()}</Table.Td>
-                <Table.Td>{hourStart + ampmStart}</Table.Td>
-                <Table.Td>{hourEnd + ampmEnd}</Table.Td>
+                <Table.Td>{hourStart + minuteStart + ampmStart}</Table.Td>
+                <Table.Td>{hourEnd + minuteEnd + ampmEnd}</Table.Td>
             </Table.Tr>
         })
     }

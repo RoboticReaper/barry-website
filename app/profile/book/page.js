@@ -72,6 +72,9 @@ export default function BookPage() {
     }
 
     function compareSlots(a, b){
+        if(a.start - b.start == 0){
+            return a.startMinute - b.startMinute
+        }
         return a.start - b.start
     }
 
@@ -170,6 +173,8 @@ export default function BookPage() {
                             let ampmStart = slot.start >= 12 ? " pm" : " am";
                             let hourEnd = (slot.end % 12) || 12;
                             let ampmEnd = slot.end >= 12 ? " pm" : " am";
+                            let minuteStart = slot.startMinute == 0 ? ":00" : ":"+slot.startMinute
+                            let minuteEnd = slot.endMinute == 0 ? ":00" : ":"+slot.endMinute
 
                             return <Table.Tr
                                 key={index}
@@ -187,8 +192,8 @@ export default function BookPage() {
                                         }
                                     />
                                 </Table.Td>
-                                <Table.Td>{hourStart + ampmStart}</Table.Td>
-                                <Table.Td>{hourEnd + ampmEnd}</Table.Td>
+                                <Table.Td>{hourStart + minuteStart + ampmStart}</Table.Td>
+                                <Table.Td>{hourEnd + minuteEnd + ampmEnd}</Table.Td>
                             </Table.Tr>
                         })
                     }</Table.Tbody>
@@ -203,7 +208,9 @@ export default function BookPage() {
                         let ampmStart = slot.start >= 12 ? " PM" : " AM";
                         let hourEnd = (slot.end % 12) || 12;
                         let ampmEnd = slot.end >= 12 ? " PM" : " AM";
-                        return selectedDate.toLocaleDateString() + " " + hourStart + ampmStart + " - " + hourEnd + ampmEnd
+                        let minuteStart = slot.startMinute == 0 ? ":00" : ":"+slot.startMinute
+                        let minuteEnd = slot.endMinute == 0 ? ":00" : ":"+slot.endMinute
+                        return selectedDate.toLocaleDateString() + " " + hourStart + minuteStart + ampmStart + " - " + hourEnd + minuteEnd + ampmEnd
                     })}</div>
                 </div>
             </Stepper.Step>
